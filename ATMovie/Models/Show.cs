@@ -1,6 +1,6 @@
 ﻿namespace ATMovie.Models
 {
-    public class Föreställning
+    public class Show
     {
         public DateTime ShowDate { get; set; }
         public Movie Movie { get; set; }
