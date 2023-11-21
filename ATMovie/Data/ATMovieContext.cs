@@ -15,5 +15,15 @@ namespace ATMovie.Data
         }
 
         public DbSet<ATMovie.Models.Movie> Movie { get; set; } = default!;
+
+
+
+            protected override void OnModelCreating(ModelBuilder modelBuilder)
+            {
+                base.OnModelCreating(modelBuilder);
+                new DbInitializer(modelBuilder).Seed();
+            }
+
+            // Db sets
     }
 }
