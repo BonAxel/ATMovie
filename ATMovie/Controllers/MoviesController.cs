@@ -24,7 +24,7 @@ namespace ATMovie.Controllers
         {
               return _context.Movie != null ? 
                           View(await _context.Movie.ToListAsync()) :
-                          Problem("Entity set 'ATMovieContext.Movie'  is null.");
+                          Problem("Entity set 'ATMovieContext.Movie' is null.");
         }
 
         // GET: Movies/Details/5
