@@ -13,5 +13,9 @@
             RowNumber = rowNumber;
             SalonId = salonId;
         }
+        public Row()
+        {
+                
+        }
     }
 }

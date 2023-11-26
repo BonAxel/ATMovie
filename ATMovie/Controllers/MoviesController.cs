@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ATMovie.Data;
 using ATMovie.Models;
+using ATMovie.ViewModel;
 
 namespace ATMovie.Controllers
 {
@@ -17,6 +18,14 @@ namespace ATMovie.Controllers
         public MoviesController(ATMovieContext context)
         {
             _context = context;
+        }
+
+
+        public ActionResult GetMovieDetails()
+        {
+            ViewBag.Movie = _context.Movie;
+            //ViewBag.Shows = _context.Shows;
+            return View();
         }
 
         // GET: Movies
@@ -30,6 +39,7 @@ namespace ATMovie.Controllers
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.Movie = _context.Movie;
             if (id == null || _context.Movie == null)
             {
                 return NotFound();

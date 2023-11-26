@@ -13,5 +13,9 @@
             NumberOfChairs = numberOfChairs;
             Rows = rows;
         }
+        public Salon()
+        {
+                
+        }
     }
 }
