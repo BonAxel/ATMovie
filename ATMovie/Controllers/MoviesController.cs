@@ -39,7 +39,7 @@ namespace ATMovie.Controllers
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            ViewBag.Movie = _context.Movie;
+            ViewBag.Show = _context.Show.Where(a => a.MovieID == id);
             if (id == null || _context.Movie == null)
             {
                 return NotFound();

@@ -18,5 +18,9 @@
             Status = status;
             Price = price;
         }
+        public Seat()
+        {
+                
+        }
     }
 }

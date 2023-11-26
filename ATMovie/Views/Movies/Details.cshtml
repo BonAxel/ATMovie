@@ -47,39 +47,37 @@
 </div>
 <hr />
 <table class="table text-white">
+
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Time
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Genre)
+                Salon
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Runtime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
+                Seats
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (Movie item in ViewBag.Movie)
+        @foreach (Show item in ViewBag.Show)
         {
 
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @Html.DisplayFor(modelItem => item.ShowHour)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Genre)
+                    @Html.DisplayFor(modelItem => item.SalonID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Runtime)
+                    @Html.DisplayFor(modelItem => item.Salon.NumberOfChairs)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    <a asp-action="Index">Book</a>
                 </td>
             </tr>
         }

@@ -43,7 +43,7 @@ namespace ATMovie.Data
                 SalonID = 1,
                 SalonName = "Tobias Hembio",
                 NumberOfChairs = 300,
-                Rows = 
+                Rows = null
             });
             #endregion
 
@@ -63,16 +63,10 @@ namespace ATMovie.Data
             modelBuilder.Entity<Show>().HasData(
                 new Show()
                 {
+                    ShowID = "S1",
                     ShowDateTime = DateTime.Now,
-                    Movie = 1,
-                    Salon = new Salon()
-                    {
-                        SalonID = 1,
-                        SalonName = "Tobias Hembio",
-                        NumberOfChairs = 300,
-                        Rows = 
-
-
+                    MovieID = 1,
+                    SalonID = 1,
                 });
 
             #endregion
