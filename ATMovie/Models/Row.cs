@@ -1,4 +1,8 @@
-﻿namespace ATMovie.Models
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
+
+namespace ATMovie.Models
 {
     public class Row
     {
@@ -6,7 +10,8 @@
         public int RowNumber { get; set; }
 
         public int SalonId { get; set; }
-        public List<Seat> Seats { get; set; }
+       
+        public ICollection<Seat> Seats { get; set; }
 
         public Row(int rowId, int rowNumber, int salonId)
         {

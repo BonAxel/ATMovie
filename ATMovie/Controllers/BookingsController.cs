@@ -1,99 +1,96 @@
-﻿using ATMovie.Data;
-using ATMovie.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ATMovie.Data;
+using ATMovie.Models;
 
 namespace ATMovie.Controllers
 {
-    public class MoviesController : Controller
+    public class BookingsController : Controller
     {
         private readonly ATMovieContext _context;
 
-        public MoviesController(ATMovieContext context)
+        public BookingsController(ATMovieContext context)
         {
             _context = context;
         }
 
-
-        public ActionResult GetMovieDetails()
-        {
-            ViewBag.Movie = _context.Movie;
-            return View();
-        }
-
-        // GET: Movies
+        // GET: Bookings
         public async Task<IActionResult> Index()
         {
-            return _context.Movie != null ?
-                        View(await _context.Movie.ToListAsync()) :
-                        Problem("Entity set 'ATMovieContext.Movie' is null.");
+              return _context.Booking != null ? 
+                          View(await _context.Booking.ToListAsync()) :
+                          Problem("Entity set 'ATMovieContext.Booking'  is null.");
         }
 
-        // GET: Movies/Details/5
+        // GET: Bookings/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            ViewBag.Show = _context.Show;
-            if (id == null || _context.Movie == null)
+            if (id == null || _context.Booking == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movie
-                .FirstOrDefaultAsync(m => m.MovieID == id);
-            if (movie == null)
+            var booking = await _context.Booking
+                .FirstOrDefaultAsync(m => m.BookingID == id);
+            if (booking == null)
             {
                 return NotFound();
             }
 
-            return View(movie);
+            return View(booking);
         }
 
-        // GET: Movies/Create
+        // GET: Bookings/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Movies/Create
+        // POST: Bookings/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieID,Title,Genre,Description,Runtime,Price")] Movie movie)
+        public async Task<IActionResult> Create([Bind("BookingID,Kundnamn,Epost")] Booking booking)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(movie);
+                _context.Add(booking);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(movie);
+            return View(booking);
         }
 
-        // GET: Movies/Edit/5
+        // GET: Bookings/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Movie == null)
+            if (id == null || _context.Booking == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movie.FindAsync(id);
-            if (movie == null)
+            var booking = await _context.Booking.FindAsync(id);
+            if (booking == null)
             {
                 return NotFound();
             }
-            return View(movie);
+            return View(booking);
         }
 
-        // POST: Movies/Edit/5
+        // POST: Bookings/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MovieID,Title,Genre,Description,Runtime,Price")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("BookingID,Kundnamn,Epost")] Booking booking)
         {
-            if (id != movie.MovieID)
+            if (id != booking.BookingID)
             {
                 return NotFound();
             }
@@ -102,12 +99,12 @@ namespace ATMovie.Controllers
             {
                 try
                 {
-                    _context.Update(movie);
+                    _context.Update(booking);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MovieExists(movie.MovieID))
+                    if (!BookingExists(booking.BookingID))
                     {
                         return NotFound();
                     }
@@ -118,49 +115,49 @@ namespace ATMovie.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(movie);
+            return View(booking);
         }
 
-        // GET: Movies/Delete/5
+        // GET: Bookings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Movie == null)
+            if (id == null || _context.Booking == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movie
-                .FirstOrDefaultAsync(m => m.MovieID == id);
-            if (movie == null)
+            var booking = await _context.Booking
+                .FirstOrDefaultAsync(m => m.BookingID == id);
+            if (booking == null)
             {
                 return NotFound();
             }
 
-            return View(movie);
+            return View(booking);
         }
 
-        // POST: Movies/Delete/5
+        // POST: Bookings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Movie == null)
+            if (_context.Booking == null)
             {
-                return Problem("Entity set 'ATMovieContext.Movie'  is null.");
+                return Problem("Entity set 'ATMovieContext.Booking'  is null.");
             }
-            var movie = await _context.Movie.FindAsync(id);
-            if (movie != null)
+            var booking = await _context.Booking.FindAsync(id);
+            if (booking != null)
             {
-                _context.Movie.Remove(movie);
+                _context.Booking.Remove(booking);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MovieExists(int id)
+        private bool BookingExists(int id)
         {
-            return (_context.Movie?.Any(e => e.MovieID == id)).GetValueOrDefault();
+          return (_context.Booking?.Any(e => e.BookingID == id)).GetValueOrDefault();
         }
     }
 }

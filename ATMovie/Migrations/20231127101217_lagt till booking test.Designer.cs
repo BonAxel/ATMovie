@@ -4,6 +4,7 @@ using ATMovie.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ATMovie.Migrations
 {
     [DbContext(typeof(ATMovieContext))]
-    partial class ATMovieContextModelSnapshot : ModelSnapshot
+    [Migration("20231127101217_lagt till booking test")]
+    partial class lagttillbookingtest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,22 +41,20 @@ namespace ATMovie.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SalonID")
+                    b.Property<int?>("SeatID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SeatId")
+                    b.Property<int?>("ShowID")
                         .HasColumnType("int");
 
-                    b.Property<string>("ShowID")
+                    b.Property<string>("ShowID1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("BookingID");
 
-                    b.HasIndex("SalonID");
+                    b.HasIndex("SeatID");
 
-                    b.HasIndex("SeatId");
-
-                    b.HasIndex("ShowID");
+                    b.HasIndex("ShowID1");
 
                     b.ToTable("Booking");
                 });
@@ -150,6 +151,9 @@ namespace ATMovie.Migrations
                     b.Property<int>("NumberOfChairs")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RowId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SalonName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -206,6 +210,9 @@ namespace ATMovie.Migrations
                     b.Property<int?>("MovieID")
                         .HasColumnType("int");
 
+                    b.Property<int>("MyProperty")
+                        .HasColumnType("int");
+
                     b.Property<int?>("SalonID")
                         .HasColumnType("int");
 
@@ -219,23 +226,27 @@ namespace ATMovie.Migrations
                     b.HasIndex("SalonID");
 
                     b.ToTable("Show");
+
+                    b.HasData(
+                        new
+                        {
+                            ShowID = "S1",
+                            MovieID = 1,
+                            MyProperty = 0,
+                            SalonID = 1,
+                            ShowDateTime = new DateTime(2023, 11, 27, 11, 12, 17, 819, DateTimeKind.Local).AddTicks(5689)
+                        });
                 });
 
             modelBuilder.Entity("ATMovie.Models.Booking", b =>
                 {
-                    b.HasOne("ATMovie.Models.Salon", "Salon")
-                        .WithMany()
-                        .HasForeignKey("SalonID");
-
                     b.HasOne("ATMovie.Models.Seat", "Seat")
                         .WithMany()
-                        .HasForeignKey("SeatId");
+                        .HasForeignKey("SeatID");
 
                     b.HasOne("ATMovie.Models.Show", "Show")
                         .WithMany()
-                        .HasForeignKey("ShowID");
-
-                    b.Navigation("Salon");
+                        .HasForeignKey("ShowID1");
 
                     b.Navigation("Seat");
 

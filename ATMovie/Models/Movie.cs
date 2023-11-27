@@ -10,9 +10,8 @@
         public string Runtime { get; set; }
         public int Price { get; set; }
 
-        public Movie(int movieID, string title, string genre, string description, string runtime, int price)
+        public Movie( string title, string genre, string description, string runtime, int price)
         {
-            MovieID = movieID;
             Title = title;
             Genre = genre;
             Description = description;
