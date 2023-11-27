@@ -9,11 +9,11 @@
 
 @foreach (var genreGroup in Model.GroupBy(m => m.Genre))
 {
-    <p style="margin: 0;">@genreGroup.Key</p>
+    <h2 style="margin: 0;">@genreGroup.Key</h2>
 
-    <table class="table text-white">
+    <table class="table custom-table-dark text-white">
         <thead>
-            <tr>
+            <tr class="custom-background mt-5">
                 <th>
 
                 </th>
@@ -38,7 +38,7 @@
             {
                 <tr>
                     <td>
-                        <img src="@item.MovieImage" alt="Movie Image" style="max-width: 200px; max-height: 200px;" />
+                        <img src="@item.MovieImage" alt="Movie Image" style="width: 150px; height: 200px;" />
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Title)
@@ -57,8 +57,8 @@
                     </td>
                 </tr>
             }
-                }
-            }
+                
+            
         </tbody>
     </table>
 }

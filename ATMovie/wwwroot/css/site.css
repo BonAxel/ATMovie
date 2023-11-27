@@ -25,3 +25,7 @@ body {
 header {
     background-color: #172A46;
 }
+.custom-table-dark {
+    background-color: #172A46;
+    color: #fff;
+}
