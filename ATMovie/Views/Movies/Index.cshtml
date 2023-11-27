@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    var groupedMovies = Model.GroupBy(m => m.Genre);
 }
 
 <h1>Index</h1>
@@ -9,9 +10,9 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-@foreach (var test in Model)
+@foreach (var movieGenre in groupedMovies)
 {
-    <p>@test.Genre</p>
+    <p>@movieGenre.Key</p>
     <table class="table text-white">
         <thead>
             <tr>
@@ -33,7 +34,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                if (test.Genre == item.Genre)
+                if (movieGenre.Key == item.Genre)
                 {
                     <tr>
                         <td>
@@ -49,9 +50,7 @@
                             @Html.DisplayFor(modelItem => item.Price)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.MovieID">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.MovieID">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.MovieID">Delete</a>
+                            <a asp-action="Details" asp-route-id="@item.MovieID">Details</a>
                         </td>
                     </tr>
                 }

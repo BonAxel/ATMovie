@@ -16,9 +16,8 @@ namespace ATMovie.Models
         
         public ICollection<Row>? Rows { get; set; }
 
-        public Salon(int salonID, string salonName, int numberOfChairs, ICollection<Row> rows)
+        public Salon(string salonName, int numberOfChairs, ICollection<Row> rows)
         {
-            SalonID = salonID;
             SalonName = salonName;
             NumberOfChairs = numberOfChairs;
             Rows = rows;

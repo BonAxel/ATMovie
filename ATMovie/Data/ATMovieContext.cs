@@ -16,5 +16,8 @@ namespace ATMovie.Data
         public DbSet<Show> Show { get; set; } = default!;
         public DbSet<Booking> Booking { get; set; } = default!;
 
+        public DbSet<Salon> Salon { get; set; } = default!;
+
+
     }
 }
