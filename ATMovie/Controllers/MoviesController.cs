@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ATMovie.Data;
+﻿using ATMovie.Data;
 using ATMovie.Models;
-using ATMovie.ViewModel;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ATMovie.Controllers
 {
@@ -31,9 +25,9 @@ namespace ATMovie.Controllers
         // GET: Movies
         public async Task<IActionResult> Index()
         {
-              return _context.Movie != null ? 
-                          View(await _context.Movie.ToListAsync()) :
-                          Problem("Entity set 'ATMovieContext.Movie' is null.");
+            return _context.Movie != null ?
+                        View(await _context.Movie.ToListAsync()) :
+                        Problem("Entity set 'ATMovieContext.Movie' is null.");
         }
 
         // GET: Movies/Details/5
@@ -160,14 +154,14 @@ namespace ATMovie.Controllers
             {
                 _context.Movie.Remove(movie);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MovieExists(int id)
         {
-          return (_context.Movie?.Any(e => e.MovieID == id)).GetValueOrDefault();
+            return (_context.Movie?.Any(e => e.MovieID == id)).GetValueOrDefault();
         }
     }
 }

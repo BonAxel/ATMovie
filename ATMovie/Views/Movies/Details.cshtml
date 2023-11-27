@@ -59,13 +59,15 @@
             <th>
                 Seats
             </th>
+            <th>
+                Book Ticket
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (Show item in ViewBag.Show)
         {
-
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.ShowHour)

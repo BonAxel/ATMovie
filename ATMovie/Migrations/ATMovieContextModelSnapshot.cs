@@ -173,6 +173,9 @@ namespace ATMovie.Migrations
                     b.Property<int?>("MovieID")
                         .HasColumnType("int");
 
+                    b.Property<int>("MyProperty")
+                        .HasColumnType("int");
+
                     b.Property<int?>("SalonID")
                         .HasColumnType("int");
 
@@ -192,8 +195,9 @@ namespace ATMovie.Migrations
                         {
                             ShowID = "S1",
                             MovieID = 1,
+                            MyProperty = 0,
                             SalonID = 1,
-                            ShowDateTime = new DateTime(2023, 11, 26, 14, 23, 28, 946, DateTimeKind.Local).AddTicks(1591)
+                            ShowDateTime = new DateTime(2023, 11, 26, 22, 56, 19, 405, DateTimeKind.Local).AddTicks(8882)
                         });
                 });
 

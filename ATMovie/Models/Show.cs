@@ -7,9 +7,7 @@ namespace ATMovie.Models
     {
         public string ShowID { get; set; }
         public DateTime ShowDateTime { get; set; }
-
-        public string ShowHour { get { return ShowHour = ShowDateTime.ToShortDateString(); } set { ShowHour = value; } } 
-       
+        public string ShowHour { get { return ShowDateTime.ToShortTimeString(); } }
         public int MyProperty { get; set; }
         [ForeignKey("MovieID")]
         public int? MovieID { get; set; }
@@ -29,7 +27,7 @@ namespace ATMovie.Models
 
         public Show()
         {
-                
+
         }
     }
 }

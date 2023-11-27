@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using ATMovie.Models;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace ATMovie.Data
 {
     public class ATMovieContext : DbContext
     {
-        public ATMovieContext (DbContextOptions<ATMovieContext> options)
+        public ATMovieContext(DbContextOptions<ATMovieContext> options)
             : base(options)
         {
         }
@@ -20,11 +15,11 @@ namespace ATMovie.Data
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-            {
-                base.OnModelCreating(modelBuilder);
-                new DbInitializer(modelBuilder).Seed();
-            }
+        {
+            base.OnModelCreating(modelBuilder);
+            new DbInitializer(modelBuilder).Seed();
+        }
 
-            // Db sets
+        // Db sets
     }
 }
