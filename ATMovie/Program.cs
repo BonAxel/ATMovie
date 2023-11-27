@@ -1,6 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using ATMovie.Data;
+﻿using ATMovie.Data;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ATMovieContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ATMovieContext") ?? throw new InvalidOperationException("Connection string 'ATMovieContext' not found.")));
