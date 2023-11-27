@@ -6,8 +6,12 @@ namespace ATMovie.Models
     {
         public int SalonID { get; set; }
         public string SalonName { get; set; }
+        
         public int NumberOfChairs { get; set; }
 
+        public int NumberOfBookedChairs { get { return NumberOfChairs - NumberOfBookedChairs; } }
+
+        public string NumberOfAvaliableChairs { get { return NumberOfBookedChairs + "/" + NumberOfChairs; } }
 
         [ForeignKey("SalonID")]
         public int? RowId { get; set; }

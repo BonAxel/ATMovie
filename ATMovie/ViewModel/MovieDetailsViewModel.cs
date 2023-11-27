@@ -7,6 +7,6 @@ namespace ATMovie.ViewModel
         public Movie Movie { get; set; }
 
         public List<Show> Shows { get; set; }
-         
+
     }
 }
