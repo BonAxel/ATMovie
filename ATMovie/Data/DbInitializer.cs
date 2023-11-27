@@ -7,9 +7,10 @@ namespace ATMovie.Data
 {
     public static class DbInitializer
     {
-        
+
         public static void Seed(ATMovieContext context)
         {
+            int id = 0;
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             context.Movie.Add(new Movie("One Piece Film Red", "Animation", "For the first time ever, Uta - the most beloved singer in the world - will reveal herself to the world at a live concert. The voice that the whole world has been waiting for is about to resound.", "1h 55m", 150));
@@ -19,7 +20,6 @@ namespace ATMovie.Data
 
 
             context.Movie.Add(new Movie("Napoleon", "Action", "An epic that details the checkered rise and fall of French Emperor Napoleon Bonaparte and his relentless journey to power through the prism of his addictive, volatile relationship with his wife, Josephine.", "2h 38m", 150));
-            context.Movie.Add(new Movie("The Hunger Games: The Ballad of Songbird & Snakes", "Action", "Coriolanus Snow mentors and develops feelings for the female District 12 tribute during the 10th Hunger Games.", "2h 37m", 150));
             context.Movie.Add(new Movie("Monarch: Legacy of Monsters", "Action", "Set after the battle between Godzilla and the Titans, revealing that monsters are real, follows one family's journey to uncover its buried secrets and a legacy linking them to Monarch.", "2h 40pm", 150));
             context.Movie.Add(new Movie("The Killer", "Action", "After a fateful near-miss, an assassin battles his employers and himself, on an international manhunt he insists isn't personal.", "1h 58m", 150));
 

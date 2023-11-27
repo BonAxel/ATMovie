@@ -11,7 +11,7 @@
         //public string MovieImage { get; set; }
         public int Price { get; set; }
 
-        public Movie( string title, string genre, string description, string runtime, int price)
+        public Movie(string title, string genre, string description, string runtime, int price)
         {
             Title = title;
             Genre = genre;
