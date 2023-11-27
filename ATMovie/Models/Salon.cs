@@ -13,11 +13,10 @@ namespace ATMovie.Models
 
         public string NumberOfAvaliableChairs { get { return NumberOfBookedChairs + "/" + NumberOfChairs; } }
 
-        [ForeignKey("SalonID")]
-        public int? RowId { get; set; }
-        public List<Row>? Rows { get; set; }
+        
+        public ICollection<Row>? Rows { get; set; }
 
-        public Salon(int salonID, string salonName, int numberOfChairs, List<Row> rows)
+        public Salon(int salonID, string salonName, int numberOfChairs, ICollection<Row> rows)
         {
             SalonID = salonID;
             SalonName = salonName;

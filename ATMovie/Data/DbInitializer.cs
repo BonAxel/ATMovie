@@ -1,11 +1,14 @@
 ﻿using ATMovie.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace ATMovie.Data
 {
     public class DbInitializer
     {
+
         private readonly ModelBuilder modelBuilder;
+
 
         public DbInitializer(ModelBuilder modelBuilder)
         {
@@ -59,17 +62,18 @@ namespace ATMovie.Data
 
             #endregion
 
-            #region SHOW
-            modelBuilder.Entity<Show>().HasData(
-                new Show()
-                {
-                    ShowID = "S1",
-                    ShowDateTime = DateTime.Now,
-                    MovieID = 1,
-                    SalonID = 1,
-                });
+            //#region SHOW
+            //modelBuilder.Entity<Show>().HasData(
+            //    new Show()
+            //    {
+            //        ShowID = "S1",
+            //        ShowDateTime = DateTime.Now,
+            //        MovieID = 1,
+            //        SalonID = 1,
+            //    });
+            
 
-            #endregion
+            
 
         }
     }
