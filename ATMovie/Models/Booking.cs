@@ -28,9 +28,6 @@ namespace ATMovie.Models
         {
             
         }
-        public Booking()
-        {
-                
-        }
+
     }
 }

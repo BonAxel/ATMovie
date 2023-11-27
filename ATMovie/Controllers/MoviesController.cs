@@ -34,9 +34,9 @@ namespace ATMovie.Controllers
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            ViewBag.Show = _context.Show.Where(a => a.MovieID == id);
+            ViewBag.Show = _context.Show.Where(a => a.Movie.MovieID == id);
 
-            ViewBag.Booking = _context.Booking.Where(a => a.Show.Movie.MovieID == id).Include(a => a.Show).ThenInclude(a => a.SalonID);
+            ViewBag.Booking = _context.Booking.Where(a => a.Show.Movie.MovieID == id).Include(a => a.Show).ThenInclude(a => a.Salon);
 
             if (id == null || _context.Movie == null)
             {
