@@ -9,26 +9,12 @@ namespace ATMovie.Data
         public ATMovieContext(DbContextOptions<ATMovieContext> options)
             : base(options)
         {
-            Seed();
+          
         }
 
-        public DbSet<ATMovie.Models.Movie> Movie { get; set; } = default!;
+        public DbSet<Movie> Movie { get; set; } = default!;
+        public DbSet<Show> Show { get; set; } = default!;
+        public DbSet<Booking> Booking { get; set; } = default!;
 
-        public DbSet<ATMovie.Models.Show> Show { get; set; } = default!;
-        public DbSet<ATMovie.Models.Booking> Booking { get; set; } = default!;
-
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    //base.OnModelCreating(modelBuilder);
-        //    //new DbInitializer(modelBuilder).Seed();
-           
-        //}
-
-        private void Seed()
-        {
-            Movie.Add(new Movie("One piece", "hej", "hejhejhej", "1,5", 150));
-        }
-        // Db sets
     }
 }
