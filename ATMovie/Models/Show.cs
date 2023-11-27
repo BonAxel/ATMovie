@@ -11,9 +11,8 @@ namespace ATMovie.Models
         public Movie? Movie { get; set; }
         public Salon? Salon { get; set; }
 
-        public Show(int showID, DateTime showDateTime, Movie movie, Salon salon)
+        public Show(DateTime showDateTime, Movie movie, Salon salon)
         {
-            ShowID = showID;
             ShowDateTime = showDateTime;
             Movie = movie;
             Salon = salon;
