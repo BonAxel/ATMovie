@@ -10,8 +10,11 @@ namespace ATMovie.Data
         }
 
         public DbSet<ATMovie.Models.Movie> Movie { get; set; } = default!;
-
         public DbSet<ATMovie.Models.Show> Show { get; set; } = default!;
+
+        public DbSet<ATMovie.Models.Salon> Salong { get; set; } = default!;
+
+        public DbSet<ATMovie.Models.Booking> Booking { get; set; } = default!;
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

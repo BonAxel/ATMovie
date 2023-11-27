@@ -40,6 +40,7 @@ namespace ATMovie.Migrations
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
+                  
 
                     b.Property<string>("Runtime")
                         .IsRequired()

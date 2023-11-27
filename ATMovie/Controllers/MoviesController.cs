@@ -15,6 +15,8 @@ namespace ATMovie.Controllers
         }
 
 
+
+
         public ActionResult GetMovieDetails()
         {
             ViewBag.Movie = _context.Movie;
@@ -34,6 +36,9 @@ namespace ATMovie.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             ViewBag.Show = _context.Show.Where(a => a.MovieID == id);
+
+            ViewBag.Booking = _context.Booking.Where(a => a.Show.Movie.MovieID == id).Include(a => a.Show).ThenInclude(a => a.SalonID);
+
             if (id == null || _context.Movie == null)
             {
                 return NotFound();
