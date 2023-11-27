@@ -4,12 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Movies</h1>
+<h1 style="margin-bottom: 30px;">Movies</h1>
 
 
 @foreach (var genreGroup in Model.GroupBy(m => m.Genre))
 {
-    <p>@genreGroup.Key</p>
+    <p style="margin: 0;">@genreGroup.Key</p>
 
     <table class="table text-white">
         <thead>
