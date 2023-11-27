@@ -2,20 +2,21 @@
 
 @{
     ViewData["Title"] = "Index";
-    var groupedMovies = Model.GroupBy(m => m.Genre);
 }
 
-<h1>Index</h1>
+<h1 style="margin-bottom: 30px;">Movies</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-@foreach (var movieGenre in groupedMovies)
+
+@foreach (var genreGroup in Model.GroupBy(m => m.Genre))
 {
-    <p>@movieGenre.Key</p>
-    <table class="table text-white">
+    <h2 style="margin: 0;">@genreGroup.Key</h2>
+
+    <table class="table custom-table-dark text-white">
         <thead>
-            <tr>
+            <tr class="custom-background mt-5">
+                <th>
+
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Title)
                 </th>
@@ -28,33 +29,36 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Price)
                 </th>
+               
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in genreGroup)
             {
-                if (movieGenre.Key == item.Genre)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Genre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Runtime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@item.MovieID">Details</a>
-                        </td>
-                    </tr>
-                }
+                <tr>
+                    <td>
+                        <img src="@item.MovieImage" alt="Movie Image" style="width: 150px; height: 200px;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Runtime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <a asp-action="Details" class="text-white" asp-route-id="@item.MovieID">Details</a>
+                    </td>
+                </tr>
             }
+                
+            
         </tbody>
     </table>
 }

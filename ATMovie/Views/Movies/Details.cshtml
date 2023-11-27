@@ -4,11 +4,10 @@
 }
 
 <h1>Details</h1>
-
+<hr />
+<hr />
 <div>
-    <h4>Movie</h4>
-    <hr />
-    <dl class="row">
+    <dl class="row ">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
@@ -42,7 +41,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Index">Back to Movies</a>
+    <a asp-action="Index" class="text-white">Back to Movies</a>
 </div>
 <hr />
 <table class="table text-white">
@@ -57,9 +56,6 @@
             </th>
             <th>
                 Seats
-            </th>
-            <th>
-                <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Create">Boka</a>
             </th>
             <th></th>
         </tr>
