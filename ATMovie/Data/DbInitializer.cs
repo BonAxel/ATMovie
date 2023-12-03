@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using System;
+using System.Net.NetworkInformation;
 
 namespace ATMovie.Data
 {
@@ -36,7 +37,6 @@ namespace ATMovie.Data
                 " one family's journey to uncover its buried secrets and a legacy linking them to Monarch.", "2h 40pm", 150, "https://m.media-amazon.com/images/M/MV5BNDk5MzYzZmYtOTFiZi00YmE2LWFjOGUtNjMyODgxNjZiYzRjXkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_FMjpg_UX1000_.jpg"));
             context.Movie.Add(new Movie("The Killer", "Action", "After a fateful near-miss," +
                 " an assassin battles his employers and himself, on an international manhunt he insists isn't personal.", "1h 58m", 150, "https://m.media-amazon.com/images/M/MV5BZGJkMDUwZWQtYTMzMS00NTg5LWE1ZTYtOTVhMDI4NGI1YjMyXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg"));
-
             context.Movie.Add(new Movie("Five Nights at Freddys", "Horror", "A troubled security" +
                 " guard begins working at Freddy Fazbear's Pizza. During his first night on the job," +
                 " he realizes that the night shift won't be so easy to get through. Pretty soon he will unveil what actually happened at Freddy's.", "1h 49m", 150, "https://resizing.flixster.com/-VIYEEAwdsv2m3Hsbs6OKHgPXK8=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzL2YxMTg4MTI4LTc3MmUtNDVkMC1iZTg2LTM4ZmEwMWE2ZWE3NS5qcGc="));
@@ -44,11 +44,34 @@ namespace ATMovie.Data
                 " Poirot, now retired and living in his own exile, reluctantly attends a seance. " +
                 "But when one of the guests is murdered, it is up to the former detective to once again uncover the killer.", "1h 43", 150, "https://img-cdn.sfanytime.com/COVERM/COVERM_24002253-2c8d-49e4-bd0c-4fcfdb942524_sv.jpg?w=375&ar=0.692&fit=crop&fm=pjpg&s=9d204ca5fe7f72fe336ca00e547207db"));
 
-            context.Salon.Add(new Salon("Salon 1", 300, null));
-            context.Salon.Add(new Salon("Salon 2", 400, null));
-            context.Salon.Add(new Salon("Salon 3", 500, null));
+            for (int i = 0; i < 300; i++) context.Seat.Add(new Seat(false));
+
+  
+            for (int i = 0; i <= 5; i++)
+            {
+                List<Seat> seats = new List<Seat>();
+                foreach (Seat item in context.Seat)
+                {
+                    seats.Add(item);
+                }
+                Row row = new Row(seats);
+                context.Row.Add(row);
+            }
+
+            List<Row> salong1Rows = new List<Row>();
+            foreach (var item in context.Row) for (int i = 0; i <= 2; i++) salong1Rows.Add(item);
+
+            List<Row> salong2Rows = new List<Row>();
+            foreach (var item in context.Row) for (int i = 0; i <= 4; i++) salong1Rows.Add(item);
+            
+            List<Row> salong3Rows = new List<Row>();
+            foreach (var item in context.Row) for (int i = 0; i <= 5; i++) salong1Rows.Add(item);
 
             context.SaveChanges();
+
+            context.Salon.Add(new Salon("Salon 1", 150, salong1Rows));
+            context.Salon.Add(new Salon("Salon 2", 200, salong2Rows));
+            context.Salon.Add(new Salon("Salon 3", 300, salong3Rows));
 
             context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
             context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));

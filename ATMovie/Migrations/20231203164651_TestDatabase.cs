@@ -5,7 +5,7 @@
 namespace ATMovie.Migrations
 {
     /// <inheritdoc />
-    public partial class Namnpamigration : Migration
+    public partial class TestDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

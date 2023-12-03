@@ -6,22 +6,19 @@ namespace ATMovie.Models
 {
     public class Row
     {
-        public int RowId { get; set; }
-        public int RowNumber { get; set; }
+        public int Id { get; set; }
+        public int AmountOfChairs { get; set; }
+        public List<Seat> Seats { get; set; }
 
-        public int SalonId { get; set; }
-       
-        public ICollection<Seat> Seats { get; set; }
-
-        public Row(int rowId, int rowNumber, int salonId)
+        public Row(List<Seat> seats)
         {
-            RowId = rowId;
-            RowNumber = rowNumber;
-            SalonId = salonId;
+            Seats = seats;
         }
+
         public Row()
         {
 
         }
+
     }
 }
