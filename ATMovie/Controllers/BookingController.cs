@@ -60,6 +60,7 @@ namespace ATMovie.Controllers
 
             ViewBag.Movie = _context.Movie.FirstOrDefault(a => a.MovieID == id);
 
+            ViewBag.Booking = booking;
 
             if (booking.Show == null)
             {

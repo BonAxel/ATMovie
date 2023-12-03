@@ -2,10 +2,13 @@
 
 @{
     ViewData["Title"] = "Create";
-    ViewData["booking"] = booking;
 }
 
-<h1>Book show</h1>
+<h1>Book show @ViewBag.Booking.Show.Movie.Title</h1>
+<h1>Time: @ViewBag.Booking.Show.ShowDateTime</h1>
+
+
+
 
 <h4>Movie</h4>
 <hr />
