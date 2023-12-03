@@ -56,6 +56,12 @@ namespace ATMovie.Controllers
             Booking booking = new Booking();
             booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
 
+            ViewBag.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
+
+            ViewBag.Movie = _context.Movie.FirstOrDefault(a => a.MovieID == id);
+
+            ViewBag.Booking = booking;
+
             if (booking.Show == null)
             {
                 return NotFound();
