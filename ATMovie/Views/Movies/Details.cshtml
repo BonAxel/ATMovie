@@ -78,7 +78,8 @@
                     @Html.DisplayFor(modelItem => item.Salon.NumberOfChairs)
                 </td>
                 <td>
-                    <a asp-action="Index">Book</a>
+                    <a asp-area="" asp-controller="Booking" asp-action="Create" asp-route-Id="@item.ShowID">Book</a>
+
                 </td>
             </tr>
         }
