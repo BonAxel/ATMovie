@@ -74,6 +74,10 @@ namespace ATMovie.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("MovieImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
@@ -92,21 +96,21 @@ namespace ATMovie.Migrations
 
             modelBuilder.Entity("ATMovie.Models.Row", b =>
                 {
-                    b.Property<int>("RowId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RowId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("RowNumber")
+                    b.Property<int>("AmountOfChairs")
                         .HasColumnType("int");
 
-                    b.Property<int>("SalonId")
+                    b.Property<int?>("SalonID")
                         .HasColumnType("int");
 
-                    b.HasKey("RowId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("SalonId");
+                    b.HasIndex("SalonID");
 
                     b.ToTable("Row");
                 });
@@ -139,21 +143,11 @@ namespace ATMovie.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SeatId"));
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<bool>("IsBooked")
+                        .HasColumnType("bit");
 
                     b.Property<int>("RowId")
                         .HasColumnType("int");
-
-                    b.Property<int>("SalonId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SeatNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SeatId");
 
@@ -213,18 +207,18 @@ namespace ATMovie.Migrations
                 {
                     b.HasOne("ATMovie.Models.Salon", null)
                         .WithMany("Rows")
-                        .HasForeignKey("SalonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SalonID");
                 });
 
             modelBuilder.Entity("ATMovie.Models.Seat", b =>
                 {
-                    b.HasOne("ATMovie.Models.Row", null)
+                    b.HasOne("ATMovie.Models.Row", "Row")
                         .WithMany("Seats")
                         .HasForeignKey("RowId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Row");
                 });
 
             modelBuilder.Entity("ATMovie.Models.Show", b =>
