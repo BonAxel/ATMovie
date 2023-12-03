@@ -53,15 +53,14 @@ namespace ATMovie.Controllers
         // GET: Booking/Create
         public IActionResult Create(int? id)
         {
-            //Booking booking = new Booking();
-            //booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
-            //ViewBag.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
-            
-            //if (booking.Show == null)
-            //{
-            //    return NotFound();
-            //}
-            return View(/*booking*/);
+            Booking booking = new Booking();
+            booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
+
+            if (booking.Show == null)
+            {
+                return NotFound();
+            }
+            return View(booking);
         }
 
         // POST: Booking/Create
@@ -69,12 +68,13 @@ namespace ATMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookingID,Kundnamn,Epost,ShowID")] Booking booking)
+        public async Task<IActionResult> Create([Bind("BookingID,Kundnamn,Epost,ShowID")] Booking booking, int? id)
         {
 
             if (ModelState.IsValid)
             {
-               
+                
+                booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
                 _context.Add(booking);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

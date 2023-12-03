@@ -1,11 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ATMovie.Models
 {
     public class Booking
     {
         public int BookingID { get; set; }
+        [Display(Name = "Customer Name")]
         public string Kundnamn { get; set; }
+        [Display(Name = "E-mail")]
         public string Epost { get; set; }
 
         public Show? Show { get; set; }
