@@ -53,15 +53,19 @@ namespace ATMovie.Controllers
         // GET: Booking/Create
         public IActionResult Create(int? id)
         {
-            //Booking booking = new Booking();
-            //booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
-            //ViewBag.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
-            
-            //if (booking.Show == null)
-            //{
-            //    return NotFound();
-            //}
-            return View(/*booking*/);
+            Booking booking = new Booking();
+            booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
+
+            ViewBag.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
+
+            ViewBag.Movie = _context.Movie.FirstOrDefault(a => a.MovieID == id);
+
+
+            if (booking.Show == null)
+            {
+                return NotFound();
+            }
+            return View(booking);
         }
 
         // POST: Booking/Create
