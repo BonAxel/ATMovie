@@ -14,9 +14,6 @@ namespace ATMovie.Controllers
             _context = context;
         }
 
-
-
-
         public ActionResult GetMovieDetails()
         {
             ViewBag.Movie = _context.Movie;

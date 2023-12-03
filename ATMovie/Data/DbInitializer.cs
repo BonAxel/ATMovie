@@ -10,7 +10,6 @@ namespace ATMovie.Data
 
         public static void Seed(ATMovieContext context)
         {
-            int id = 0;
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             context.Movie.Add(new Movie("One Piece Film Red", "Animation", "For the first time ever," +
@@ -27,8 +26,6 @@ namespace ATMovie.Data
             context.Movie.Add(new Movie("Trolls 3", "Animation", "Poppy discovers that Branch was once " +
                 "part of the boy band 'BroZone' with his brothers, Floyd, John Dory, Spruce and Clay. When " +
                 "Floyd is kidnapped, Branch and Poppy embark on a journey to reunite his two other brothers and rescue Floyd.", "1h 31m", 150, "https://imusic.b-cdn.net/images/item/original/520/9781408370520.jpg?2023-official-trolls-band-together-story-of-the-movie-trolls-3-pocketbok&class=scaled&v=1692548218"));
-
-
             context.Movie.Add(new Movie("Napoleon", "Action", "An epic that details the checkered " +
                 "rise and fall of French Emperor Napoleon Bonaparte and his relentless journey to " +
                 "power through the prism of his addictive, volatile relationship with his wife, Josephine.", "2h 38m", 150, "https://resizing.flixster.com/IV_6IDxEbgc14nQNEUo1jiUFbD8=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzU2NzUxMTgyLTFkMDgtNDhjYi05MTU4LWFlYWRmNmM5ZjYxNC5qcGc="));
@@ -51,10 +48,12 @@ namespace ATMovie.Data
             context.Salon.Add(new Salon("Salon 2", 400, null));
             context.Salon.Add(new Salon("Salon 3", 500, null));
 
+            context.SaveChanges();
+
             context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
-            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals("1")), context.Salon.FirstOrDefault(s => s.SalonID.Equals("2"))));
-            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals("1")), context.Salon.FirstOrDefault(s => s.SalonID.Equals("3"))));
-            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals("4")), context.Salon.FirstOrDefault(s => s.SalonID.Equals("1"))));
+            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
+            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
+            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(4)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
 
             context.SaveChanges();
 
