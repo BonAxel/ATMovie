@@ -85,7 +85,7 @@ namespace ATMovie.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(booking);
+            return View("Index", "Bookings");
         }
 
         // GET: Booking/Edit/5

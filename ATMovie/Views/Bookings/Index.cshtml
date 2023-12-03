@@ -7,58 +7,83 @@
 <h1>Booked Tickets</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <form asp-controller="Bookings" asp-action="Index">
+        <p>
+            Search Customer name or Email: <input type="text" name="SearchString" />
+            <input type="submit" value="Filter" />
+        </p>
+    </form>
 </p>
-<table class="table text-white">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Kundnamn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Epost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Show)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Salon)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Seat)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Show)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Salon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Seat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Kundnamn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Epost)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BookingID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BookingID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BookingID">Delete</a>
-            </td>
-        </tr>
+
+@if (!String.IsNullOrEmpty(ViewBag.SearchString))
+{
+    if (Model.Any())
+    {
+        <table class="table text-white">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Kundnamn)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Epost)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BookingID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Show.Movie.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Show.ShowDateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Salon)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Seat)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Kundnamn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Epost)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BookingID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Show.Movie.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Show.ShowDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Show)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Salon)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Seat)
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@item.BookingID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No results found.</p>
+    }
 }
-    </tbody>
-</table>
