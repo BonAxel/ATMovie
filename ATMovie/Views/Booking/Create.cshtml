@@ -4,13 +4,20 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Book show @ViewBag.Booking.Show.Movie.Title</h1>
-<h1>Time: @ViewBag.Booking.Show.ShowDateTime</h1>
-
-
-
-
 <h4>Movie</h4>
+
+
+@* @foreach (Show item in ViewBag.Show.Salon.Row) ;
+
+    foreach (var test in item) ;
+        {
+            foreach (var test123 in test.Seat) ;
+                {
+<div>Hej</div>
+                }
+}
+        }
+} *@
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -31,7 +38,7 @@
                 <input asp-for="Show" class="form-control" />
                 <span asp-validation-for="Show" class="text-danger"></span>
             </div>
-           
+
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -45,5 +52,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

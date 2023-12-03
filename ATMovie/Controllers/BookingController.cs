@@ -32,7 +32,7 @@ namespace ATMovie.Controllers
         // GET: Booking/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            ViewBag.Show = _context.Show.Where(a => a.Movie.MovieID == id);
+            ViewBag.Show = _context.Show.Where(a => a.Movie.MovieID == id).Include(a => a.Movie).Include(a => a.Salon);
 
 
             if (id == null || _context.Booking == null)
@@ -54,19 +54,21 @@ namespace ATMovie.Controllers
         public IActionResult Create(int? id)
         {
             Booking booking = new Booking();
-            booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
 
-            ViewBag.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
 
-            ViewBag.Movie = _context.Movie.FirstOrDefault(a => a.MovieID == id);
-
-            ViewBag.Booking = booking;
-
-            if (booking.Show == null)
+            //ViewBag.Show = _context.Show.Where(a => a.ShowID == id).Include(a => a.Movie).Include(a => a.Salon).ThenInclude(a => a.Rows.Where(a.SalonID))
+;
+            ViewBag.Show = _context.Show
+            .Where(a => a.ShowID == id)
+            .Include(a => a.Movie)
+            .Include(a => a.Salon)
+                .ThenInclude(s => s.Rows)  // Include the Row property of the Salon entity
+            .ToList();
+            if (ViewBag.Show == null)
             {
                 return NotFound();
             }
-            return View(booking);
+            return View();
         }
 
         // POST: Booking/Create

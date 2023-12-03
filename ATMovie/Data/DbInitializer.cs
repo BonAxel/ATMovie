@@ -47,7 +47,7 @@ namespace ATMovie.Data
             for (int i = 0; i < 300; i++) context.Seat.Add(new Seat(false));
 
   
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i >= 5; i++)
             {
                 List<Seat> seats = new List<Seat>();
                 foreach (Seat item in context.Seat)
@@ -58,20 +58,46 @@ namespace ATMovie.Data
                 context.Row.Add(row);
             }
 
-            List<Row> salong1Rows = new List<Row>();
-            foreach (var item in context.Row) for (int i = 0; i <= 2; i++) salong1Rows.Add(item);
+            //context.Salon.Add(new Salon("Salon 1", 150, salong1Rows));
+            //context.Salon.Add(new Salon("Salon 2", 200, salong2Rows));
+            //context.Salon.Add(new Salon("Salon 3", 300, salong3Rows));
 
-            List<Row> salong2Rows = new List<Row>();
-            foreach (var item in context.Row) for (int i = 0; i <= 4; i++) salong1Rows.Add(item);
-            
-            List<Row> salong3Rows = new List<Row>();
-            foreach (var item in context.Row) for (int i = 0; i <= 5; i++) salong1Rows.Add(item);
+            //List<Row> salong1Rows = new List<Row>();
+            //foreach (var item in context.Row)
+            //{
+            //    List<Row> row = new List<Row>();
+            //    foreach (var test in context.Seat)
+            //    {
+
+            //    }
+            //}
+            //    for (int i = 0; i <= 2; i++) 
+            //    salong1Rows.Add(item);
+
+
+
+
+            //List<Row> salong2Rows = new List<Row>();
+            //foreach (var item in context.Seat) for (int i = 0; i <= 4; i++) salong1Rows.Add(item);
+
+            //List<Row> salong3Rows = new List<Row>();
+            //List<Seat> salong3Seats = new List<Seat>();
+            //foreach (var item in context.Seat)
+            //{
+            //    for (int i = 0; i <= 5; i++)
+            //    {
+            //        salong3Seats.Add(item);
+            //    }
+            //    //salong3Rows = new Row(salong3Seats);
+            //}
 
             context.SaveChanges();
 
-            context.Salon.Add(new Salon("Salon 1", 150, salong1Rows));
-            context.Salon.Add(new Salon("Salon 2", 200, salong2Rows));
-            context.Salon.Add(new Salon("Salon 3", 300, salong3Rows));
+            context.Salon.Add(new Salon("Salon 1", 150, null));
+            context.Salon.Add(new Salon("Salon 2", 200, null));
+            context.Salon.Add(new Salon("Salon 3", 300, null));
+
+            context.SaveChanges();
 
             context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
             context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
