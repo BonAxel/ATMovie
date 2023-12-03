@@ -20,11 +20,27 @@ namespace ATMovie.Controllers
         }
 
         // GET: Bookings
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-              return _context.Booking != null ? 
-                          View(await _context.Booking.ToListAsync()) :
-                          Problem("Entity set 'ATMovieContext.Booking'  is null.");
+         
+            if (_context.Booking == null)
+            {
+                return Problem("Entity set 'MvcMovieContext.Booking'  is null.");
+            }
+
+            var bookings = from b in _context.Booking
+                           select b;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                if (int.TryParse(searchString, out int x))
+                {
+                    bookings = bookings.Where(s => s.BookingID == x);
+
+                }
+            }
+            ViewBag.SearchString = searchString;
+            return View(await bookings.ToListAsync());
         }
 
         // GET: Bookings/Details/5

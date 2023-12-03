@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ATMovie.Models
@@ -6,6 +7,7 @@ namespace ATMovie.Models
     public class Show
     {
         public int ShowID { get; set; }
+        [Display(Name = "Date & Time")]
         public DateTime ShowDateTime { get; set; }
         public string ShowHour { get { return ShowDateTime.ToShortTimeString(); } }
         public Movie? Movie { get; set; }
