@@ -25,3 +25,54 @@ body {
 header {
     background-color: #172A46;
 }
+.larger-checkbox {
+    width: 1vw;
+    height: 1vw;
+
+}
+.Moviescreentext {
+    margin-left: 11vw;
+    position: absolute;
+    top: 10vw;
+    color: #172A46;
+}
+.welcometext {
+  
+    
+    position: relative;
+    animation-name: example;
+    animation-duration: 1s;
+    animation-direction: reverse;
+}
+
+@keyframes example {
+    0% {
+        color: white;
+        left: 0px;
+        top: 0px;
+    }
+
+    25% {
+        color: lightblue;
+        left: 200px;
+        top: 0px;
+    }
+  
+    50% {
+        color: white;
+        left: 200px;
+        top: 200px;
+    }
+
+    75% {
+        color: lightblue;
+        left: 0px;
+        top: 200px;
+    }
+
+    100% {
+        color: white;
+        left: 0px;
+        top: 0px;
+    }
+}
