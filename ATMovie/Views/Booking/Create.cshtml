@@ -7,17 +7,17 @@
 <h4>Movie</h4>
 
 
-@* @foreach (Show item in ViewBag.Show.Salon.Row) ;
-
-    foreach (var test in item) ;
+@foreach (Show show in ViewBag.Show)
+{
+    <div style="align-content">
+        @foreach (var item in show.Salon.SalonRows)
         {
-            foreach (var test123 in test.Seat) ;
-                {
-<div>Hej</div>
-                }
-}
+            <div>Hej</div>
         }
-} *@
+    </div>
+}
+
+
 <hr />
 @* <div class="row">
     <div class="col-md-4">
@@ -41,7 +41,7 @@
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
-                
+
             </div>
         </form>
     </div>

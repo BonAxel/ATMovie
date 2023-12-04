@@ -58,6 +58,29 @@ namespace ATMovie.Migrations
                     b.ToTable("Booking");
                 });
 
+            modelBuilder.Entity("ATMovie.Models.Junction", b =>
+                {
+                    b.Property<int>("JunctionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("JunctionId"));
+
+                    b.Property<int>("RowID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatID")
+                        .HasColumnType("int");
+
+                    b.HasKey("JunctionId");
+
+                    b.HasIndex("RowID");
+
+                    b.HasIndex("SeatID");
+
+                    b.ToTable("Junctions");
+                });
+
             modelBuilder.Entity("ATMovie.Models.Movie", b =>
                 {
                     b.Property<int>("MovieID")
@@ -102,15 +125,7 @@ namespace ATMovie.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AmountOfChairs")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SalonID")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SalonID");
 
                     b.ToTable("Row");
                 });
@@ -135,6 +150,29 @@ namespace ATMovie.Migrations
                     b.ToTable("Salon");
                 });
 
+            modelBuilder.Entity("ATMovie.Models.SalonRows", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("RowID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SalonID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RowID");
+
+                    b.HasIndex("SalonID");
+
+                    b.ToTable("SalonRows");
+                });
+
             modelBuilder.Entity("ATMovie.Models.Seat", b =>
                 {
                     b.Property<int>("SeatId")
@@ -146,12 +184,7 @@ namespace ATMovie.Migrations
                     b.Property<bool>("IsBooked")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("RowId")
-                        .HasColumnType("int");
-
                     b.HasKey("SeatId");
-
-                    b.HasIndex("RowId");
 
                     b.ToTable("Seat");
                 });
@@ -203,18 +236,42 @@ namespace ATMovie.Migrations
                     b.Navigation("Show");
                 });
 
-            modelBuilder.Entity("ATMovie.Models.Row", b =>
+            modelBuilder.Entity("ATMovie.Models.Junction", b =>
                 {
-                    b.HasOne("ATMovie.Models.Salon", null)
-                        .WithMany("Rows")
-                        .HasForeignKey("SalonID");
+                    b.HasOne("ATMovie.Models.Row", "Row")
+                        .WithMany("Seats")
+                        .HasForeignKey("RowID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ATMovie.Models.Seat", "Seat")
+                        .WithMany("Seats")
+                        .HasForeignKey("SeatID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Row");
+
+                    b.Navigation("Seat");
                 });
 
-            modelBuilder.Entity("ATMovie.Models.Seat", b =>
+            modelBuilder.Entity("ATMovie.Models.SalonRows", b =>
                 {
-                    b.HasOne("ATMovie.Models.Row", null)
-                        .WithMany("Seats")
-                        .HasForeignKey("RowId");
+                    b.HasOne("ATMovie.Models.Row", "Row")
+                        .WithMany()
+                        .HasForeignKey("RowID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ATMovie.Models.Salon", "Salon")
+                        .WithMany("SalonRows")
+                        .HasForeignKey("SalonID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Row");
+
+                    b.Navigation("Salon");
                 });
 
             modelBuilder.Entity("ATMovie.Models.Show", b =>
@@ -239,7 +296,12 @@ namespace ATMovie.Migrations
 
             modelBuilder.Entity("ATMovie.Models.Salon", b =>
                 {
-                    b.Navigation("Rows");
+                    b.Navigation("SalonRows");
+                });
+
+            modelBuilder.Entity("ATMovie.Models.Seat", b =>
+                {
+                    b.Navigation("Seats");
                 });
 #pragma warning restore 612, 618
         }

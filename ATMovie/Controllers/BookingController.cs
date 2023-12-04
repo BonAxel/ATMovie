@@ -14,7 +14,7 @@ namespace ATMovie.Controllers
     {
         private readonly ATMovieContext _context;
 
-      
+
 
         public BookingController(ATMovieContext context)
         {
@@ -24,15 +24,19 @@ namespace ATMovie.Controllers
         // GET: Booking
         public async Task<IActionResult> Index()
         {
-              return _context.Booking != null ? 
-                          View(await _context.Booking.ToListAsync()) :
-                          Problem("Entity set 'ATMovieContext.Booking'  is null.");
+            return _context.Booking != null ?
+                        View(await _context.Booking.ToListAsync()) :
+                        Problem("Entity set 'ATMovieContext.Booking'  is null.");
         }
 
         // GET: Booking/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            ViewBag.Show = _context.Show.Where(a => a.Movie.MovieID == id).Include(a => a.Movie).Include(a => a.Salon);
+            ViewBag.Show = _context.Show.Where(a => a.Movie.MovieID == id)
+                .Include(a => a.Movie).Include(a => a.Salon)
+                .ThenInclude(a => a.SalonRows)
+                .ThenInclude(a => a.Row)
+                .ThenInclude(a => a.Seats);
 
 
             if (id == null || _context.Booking == null)
@@ -56,14 +60,15 @@ namespace ATMovie.Controllers
             Booking booking = new Booking();
 
 
-            //ViewBag.Show = _context.Show.Where(a => a.ShowID == id).Include(a => a.Movie).Include(a => a.Salon).ThenInclude(a => a.Rows.Where(a.SalonID))
-;
+            //ViewBag.Show = _context.Show.Where(a => a.ShowID == id).Include(a => a.Movie).Include(a => a.Salon).ThenInclude(a => a.Rows.Where(a.SalonID))            ;
+
             ViewBag.Show = _context.Show
             .Where(a => a.ShowID == id)
-            .Include(a => a.Movie)
-            .Include(a => a.Salon)
-                .ThenInclude(s => s.Rows)  // Include the Row property of the Salon entity
-            .ToList();
+                .Include(a => a.Movie)
+                .Include(a => a.Salon)
+                .ThenInclude(s => s.SalonRows)
+                .ThenInclude(s => s.Row)
+                .ToList();
             if (ViewBag.Show == null)
             {
                 return NotFound();
@@ -81,7 +86,7 @@ namespace ATMovie.Controllers
 
             if (ModelState.IsValid)
             {
-                
+
                 booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
                 _context.Add(booking);
                 await _context.SaveChangesAsync();
@@ -173,14 +178,14 @@ namespace ATMovie.Controllers
             {
                 _context.Booking.Remove(booking);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BookingExists(int id)
         {
-          return (_context.Booking?.Any(e => e.BookingID == id)).GetValueOrDefault();
+            return (_context.Booking?.Any(e => e.BookingID == id)).GetValueOrDefault();
         }
     }
 }

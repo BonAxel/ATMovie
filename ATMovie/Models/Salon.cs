@@ -9,18 +9,13 @@ namespace ATMovie.Models
 
         public int NumberOfChairs { get; set; }
 
-        //public int NumberOfBookedChairs { get { return NumberOfChairs - NumberOfBookedChairs; } }
+        public List<SalonRows>? SalonRows { get; set; }
 
-        //public string NumberOfAvaliableChairs { get { return NumberOfBookedChairs + "/" + NumberOfChairs; } }
-
-
-        public List<Row>? Rows { get; set; }
-
-        public Salon(string salonName, int numberOfChairs, List<Row> rows)
+        public Salon(string salonName, int numberOfChairs, List<SalonRows> salonRows)
         {
             SalonName = salonName;
             NumberOfChairs = numberOfChairs;
-            Rows = rows;
+            SalonRows = salonRows;
         }
         public Salon() 
         {

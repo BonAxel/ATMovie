@@ -15,10 +15,11 @@ namespace ATMovie.Data
         public DbSet<Show> Show { get; set; } = default!;
         public DbSet<Booking> Booking { get; set; } = default!;
         public DbSet<Salon> Salon { get; set; } = default!;
-
         public DbSet<Seat> Seat { get; set; } = default!;
-
         public DbSet<Row> Row { get; set; } = default!;
+        public DbSet<Junction> Junctions { get; set; } = default!;
+        public DbSet<SalonRows> SalonRows { get; set; } = default!;
+
 
 
     }
