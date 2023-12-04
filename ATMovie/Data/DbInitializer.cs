@@ -78,7 +78,7 @@ namespace ATMovie.Data
                 foreach (var seat in seats)
                 {
                     // Create Junction instances and add them to the context
-                    var junction = new Junction { Row = row, Seat = seat };
+                    var junction = new RowSeat { Row = row, Seat = seat };
                     context.Junctions.Add(junction);
                 }
             }

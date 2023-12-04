@@ -9,43 +9,29 @@
 
 @foreach (Show show in ViewBag.Show)
 {
+    <h3>@show.Salon.SalonName</h3>
+
     <div style="align-content">
-        @foreach (var item in show.Salon.SalonRows)
+        @foreach (SalonRows row in show.Salon.SalonRows)
         {
-            <div>Hej</div>
+            if (row.Row.Seats == null)
+            {
+                <p>Unable to display theater</p>
+            }
+            else
+            {
+                <div class="row">
+                    @foreach (RowSeat item in row.Row.Seats)
+                    {
+                        <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1" name="selectedSeats" value="@item.RowSeatId"></input>
+                    }
+                </div>
+            }
         }
     </div>
 }
 
-
 <hr />
-@* <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Kundnamn" class="control-label"></label>
-                <input asp-for="Kundnamn" class="form-control" />
-                <span asp-validation-for="Kundnamn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Epost" class="control-label"></label>
-                <input asp-for="Epost" class="form-control" />
-                <span asp-validation-for="Epost" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Show" class="control-label"></label>
-                <input asp-for="Show" class="form-control" />
-                <span asp-validation-for="Show" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-
-            </div>
-        </form>
-    </div>
-</div> *@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" asp-controller="Bookings" method="post">
@@ -60,12 +46,6 @@
                 <input asp-for="Epost" class="form-control" />
                 <span asp-validation-for="Epost" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Show" class="control-label"></label>
-                <input asp-for="Show" class="form-control" />
-                <span asp-validation-for="Show" class="text-danger"></span>
-            </div>
-
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

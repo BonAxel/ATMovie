@@ -60,7 +60,6 @@ namespace ATMovie.Controllers
             Booking booking = new Booking();
 
 
-            //ViewBag.Show = _context.Show.Where(a => a.ShowID == id).Include(a => a.Movie).Include(a => a.Salon).ThenInclude(a => a.Rows.Where(a.SalonID))            ;
 
             ViewBag.Show = _context.Show
             .Where(a => a.ShowID == id)
@@ -68,6 +67,9 @@ namespace ATMovie.Controllers
                 .Include(a => a.Salon)
                 .ThenInclude(s => s.SalonRows)
                 .ThenInclude(s => s.Row)
+                                .ThenInclude(s => s.Seats)
+                                                                .ThenInclude(s => s.Seat)
+
                 .ToList();
             if (ViewBag.Show == null)
             {
@@ -81,9 +83,12 @@ namespace ATMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookingID,Kundnamn,Epost,ShowID")] Booking booking, int? id)
+        public async Task<IActionResult> Create([Bind("BookingID,Kundnamn,Epost,ShowID","selectedSeats")] Booking booking, int? id, string[] selectedSeats)
         {
-
+            if (selectedSeats != null && selectedSeats.Any())
+            {
+                return View();
+            }
             if (ModelState.IsValid)
             {
 

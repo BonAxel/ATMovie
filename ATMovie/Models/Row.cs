@@ -24,7 +24,7 @@ namespace ATMovie.Models
     public class Row
     {
         public int Id { get; set; }
-        public ICollection<Junction>? Seats { get; set; }
+        public ICollection<RowSeat>? Seats { get; set; }
 
 
         public Row()
@@ -32,7 +32,7 @@ namespace ATMovie.Models
                 
         }
 
-        public Row(ICollection<Junction>? seats)
+        public Row(ICollection<RowSeat>? seats)
         {
             Seats = seats;
         }

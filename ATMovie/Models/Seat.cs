@@ -28,7 +28,7 @@ namespace ATMovie.Models
         public bool IsBooked { get; set; }
 
         // Foreign key property
-        public ICollection<Junction>? Seats { get; set; }
+        public ICollection<RowSeat>? Seats { get; set; }
 
         public Seat(bool isBooked)
         {

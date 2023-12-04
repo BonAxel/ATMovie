@@ -1,9 +1,9 @@
 ﻿namespace ATMovie.Models
 {
-    public class Junction
+    public class RowSeat
     {
 
-        public int JunctionId { get; set; }
+        public int RowSeatId { get; set; }
 
         public int RowID { get; set; }
         public Row Row { get; set; }
