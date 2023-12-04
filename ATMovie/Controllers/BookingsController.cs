@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ATMovie.Data;
 using ATMovie.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ATMovie.Controllers
 {
@@ -22,7 +23,12 @@ namespace ATMovie.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index(string searchString)
         {
-         
+            int test = 1;
+            ViewBag.Booking = _context.Booking.Where(a => a.BookingID == test).Include(a => a.Show).ThenInclude(a => a.Movie).Include(a => a.Salon);
+
+
+
+
             if (_context.Booking == null)
             {
                 return Problem("Entity set 'MvcMovieContext.Booking'  is null.");
@@ -31,7 +37,7 @@ namespace ATMovie.Controllers
             var bookings = from b in _context.Booking
                            select b;
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
                 if (int.TryParse(searchString, out int x))
                 {

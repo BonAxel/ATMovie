@@ -87,10 +87,12 @@ namespace ATMovie.Controllers
         {
             if (selectedSeats != null && selectedSeats.Any())
             {
+                ModelState.AddModelError("selectedSeats", "Please select at least one seat.");
                 return View();
             }
             if (ModelState.IsValid)
             {
+                booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
 
                 booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
                 _context.Add(booking);
@@ -98,6 +100,24 @@ namespace ATMovie.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View("Index", "Bookings");
+
+            //if (ModelState.IsValid)
+            //{
+
+
+            //    // Additional logic to handle selected seats - you might need to adjust this based on your data model
+            //    foreach (var seat in selectedSeats)
+            //    {
+            //        var bookingSeat = new BookingSeat { SeatNumber = seat };
+            //        booking.BookingSeats.Add(bookingSeat);
+            //    }
+
+            //    _context.Add(booking);
+            //    await _context.SaveChangesAsync();
+            //    return RedirectToAction(nameof(Index));
+            //}
+
+            //return View("Index", "Bookings");
         }
 
         // GET: Booking/Edit/5
