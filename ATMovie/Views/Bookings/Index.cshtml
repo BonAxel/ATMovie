@@ -47,11 +47,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (Booking item in ViewBag.Booking)
                 {
+                    
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Kundnamn)
+                            @Html.DisplayFor(modelItem => item)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Epost)

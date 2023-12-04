@@ -43,59 +43,105 @@ namespace ATMovie.Data
             context.Movie.Add(new Movie("Mord i Venedig", "Horror", "In post-World War II Venice," +
                 " Poirot, now retired and living in his own exile, reluctantly attends a seance. " +
                 "But when one of the guests is murdered, it is up to the former detective to once again uncover the killer.", "1h 43", 150, "https://img-cdn.sfanytime.com/COVERM/COVERM_24002253-2c8d-49e4-bd0c-4fcfdb942524_sv.jpg?w=375&ar=0.692&fit=crop&fm=pjpg&s=9d204ca5fe7f72fe336ca00e547207db"));
+            context.SaveChanges();
 
-            for (int i = 0; i < 300; i++) context.Seat.Add(new Seat(false));
+            //List<Junction> asda = new List<Junction>();
 
-  
-            for (int i = 0; i >= 5; i++)
+            //for (int i = 0; i <= 5; i++) context.Row.Add(new Row(1));
+            //context.SaveChanges();
+
+
+            //for (int i = 0; i < 300; i++) context.Seat.Add(new Seat(false));
+            //context.SaveChanges();
+
+            //context.
+            // Seed Rows
+            for (int i = 0; i <= 5; i++)
             {
-                List<Seat> seats = new List<Seat>();
-                foreach (Seat item in context.Seat)
-                {
-                    seats.Add(item);
-                }
-                Row row = new Row(seats);
-                context.Row.Add(row);
+                context.Row.Add(new Row()); // Assuming Row constructor requires a parameter
             }
+            context.SaveChanges();
 
-            //context.Salon.Add(new Salon("Salon 1", 150, salong1Rows));
-            //context.Salon.Add(new Salon("Salon 2", 200, salong2Rows));
-            //context.Salon.Add(new Salon("Salon 3", 300, salong3Rows));
+            // Seed Seats
+            for (int i = 0; i < 50; i++)
+            {
+                context.Seat.Add(new Seat(false)); // Assuming Seat constructor requires a parameter
+            }
+            context.SaveChanges();
 
-            //List<Row> salong1Rows = new List<Row>();
-            //foreach (var item in context.Row)
-            //{
-            //    List<Row> row = new List<Row>();
-            //    foreach (var test in context.Seat)
-            //    {
+            // Seed Junctions
+            var rows = context.Row.ToList(); // Retrieve all rows
+            var seats = context.Seat.ToList(); // Retrieve all seats
 
-            //    }
-            //}
-            //    for (int i = 0; i <= 2; i++) 
-            //    salong1Rows.Add(item);
-
-
-
-
-            //List<Row> salong2Rows = new List<Row>();
-            //foreach (var item in context.Seat) for (int i = 0; i <= 4; i++) salong1Rows.Add(item);
-
-            //List<Row> salong3Rows = new List<Row>();
-            //List<Seat> salong3Seats = new List<Seat>();
-            //foreach (var item in context.Seat)
-            //{
-            //    for (int i = 0; i <= 5; i++)
-            //    {
-            //        salong3Seats.Add(item);
-            //    }
-            //    //salong3Rows = new Row(salong3Seats);
-            //}
+            foreach (var row in rows)
+            {
+                foreach (var seat in seats)
+                {
+                    // Create Junction instances and add them to the context
+                    var junction = new RowSeat { Row = row, Seat = seat };
+                    context.Junctions.Add(junction);
+                }
+            }
 
             context.SaveChanges();
 
-            context.Salon.Add(new Salon("Salon 1", 150, null));
-            context.Salon.Add(new Salon("Salon 2", 200, null));
-            context.Salon.Add(new Salon("Salon 3", 300, null));
+
+
+            //foreach (var test in context.Row)
+            //{
+            //    List<Seat> seats = new List<Seat>();
+            //    foreach (var item in context.Seat)
+            //    {
+            //        seats.Add(item);
+            //    }
+            //    context.Row.Add(new Row(seats));
+            //}
+            //context.SaveChanges();
+
+
+
+
+            //for (int i = 0; i <= 5; i++)
+            //{
+            //    Row row1 = new Row();
+            //    foreach (var item in context.Seat)
+            //    {
+            //        row1.Seats.Add(item);
+            //    }
+            //    context.Row.Add(row1);
+            //}
+            for (int i = 1; i <= 5; i++)
+            {
+                int amountOfSeats = +50;
+                context.Salon.Add(new Salon("Salon "+i, amountOfSeats, null));
+
+            }
+            context.SaveChanges();
+
+
+
+
+            foreach (var salon in context.Salon)
+            {
+                foreach (var row in context.Row)
+                {
+                    var salonRow = new SalonRows(salon, row);
+                    context.SalonRows.Add(salonRow);
+                }
+            }
+
+
+            //var Salon = context.Salon.ToList(); // Retrieve all rows
+            //var Row1 = context.Row.ToList(); // Retrieve all rows
+
+            //foreach (var salon in context.Salon)
+            //{
+            //    foreach (var row in Row1)
+            //    {
+            //        var salonRows = new SalonRows(salon, row);
+            //        context.SalonRows.Add(salonRows);
+            //    }
+            //}
 
             context.SaveChanges();
 
