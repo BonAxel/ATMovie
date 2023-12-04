@@ -15,7 +15,6 @@ namespace ATMovie.Controllers
         private readonly ATMovieContext _context;
 
 
-
         public BookingController(ATMovieContext context)
         {
             _context = context;
@@ -59,16 +58,14 @@ namespace ATMovie.Controllers
         {
             Booking booking = new Booking();
 
-
-
             ViewBag.Show = _context.Show
             .Where(a => a.ShowID == id)
                 .Include(a => a.Movie)
                 .Include(a => a.Salon)
                 .ThenInclude(s => s.SalonRows)
                 .ThenInclude(s => s.Row)
-                                .ThenInclude(s => s.Seats)
-                                                                .ThenInclude(s => s.Seat)
+                .ThenInclude(s => s.Seats)
+                .ThenInclude(s => s.Seat)
 
                 .ToList();
             if (ViewBag.Show == null)
@@ -78,46 +75,48 @@ namespace ATMovie.Controllers
             return View();
         }
 
+        [BindProperty]
+        public List<int> SeatIsChecked { get; set; }
+
+        public IActionResult CheckSeats()
+        {
+            return View();
+        }
+
         // POST: Booking/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookingID,Kundnamn,Epost,ShowID","selectedSeats")] Booking booking, int? id, string[] selectedSeats)
+        public async Task<IActionResult> Create([Bind("BookingID,Kundnamn,Epost,ShowID")] Booking booking, int? id)
         {
-            if (selectedSeats != null && selectedSeats.Any())
+            //if (selectedSeats != null && selectedSeats.Any())
+            //{
+            //    ModelState.AddModelError("selectedSeats", "Please select at least one seat.");
+            //    return View();
+            //}
+            List<SalonRows> SelectedRows = new List<SalonRows>();
+
+            foreach (var item in SeatIsChecked)
             {
-                ModelState.AddModelError("selectedSeats", "Please select at least one seat.");
-                return View();
+                SalonRows? salonRows = new SalonRows();
+                salonRows = await _context.SalonRows
+                                    .FirstOrDefaultAsync(m => m.RowID == item);
+
+                SelectedRows.Add(salonRows);
             }
+            
+
             if (ModelState.IsValid)
             {
-                booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
 
                 booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
                 _context.Add(booking);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View("Index", "Bookings");
-
-            //if (ModelState.IsValid)
-            //{
-
-
-            //    // Additional logic to handle selected seats - you might need to adjust this based on your data model
-            //    foreach (var seat in selectedSeats)
-            //    {
-            //        var bookingSeat = new BookingSeat { SeatNumber = seat };
-            //        booking.BookingSeats.Add(bookingSeat);
-            //    }
-
-            //    _context.Add(booking);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-
-            //return View("Index", "Bookings");
         }
 
         // GET: Booking/Edit/5

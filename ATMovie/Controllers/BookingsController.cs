@@ -27,8 +27,6 @@ namespace ATMovie.Controllers
             ViewBag.Booking = _context.Booking.Where(a => a.BookingID == test).Include(a => a.Show).ThenInclude(a => a.Movie).Include(a => a.Salon);
 
 
-
-
             if (_context.Booking == null)
             {
                 return Problem("Entity set 'MvcMovieContext.Booking'  is null.");
