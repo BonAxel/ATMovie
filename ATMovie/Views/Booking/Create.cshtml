@@ -16,25 +16,29 @@
         <div style="width: 30vw;">
             @foreach (SalonRows salonrow in show.Salon.SalonRows)
             {
-
-
                 @if (salonrow.Row.Seats == null)
                 {
                     <p>Unable to display theater</p>
                 }
                 else
                 {
-
                     <div class="row mt-4">
                         @foreach (RowSeat item in salonrow.Row.Seats)
                         {
-
-                            <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1"
-                                   name="SeatIsChecked" value="@item.RowSeatId" asp-page-handler="CheckSeats" />
-
+                            if (item.Seat.IsBooked == true)
+                            {
+                                <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1 disabled-checkbox"
+                                       name="SeatIsChecked" value="@item.RowSeatId"/>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1"
+                                       name="SeatIsChecked" value="@item.RowSeatId" asp-page-handler="CheckSeats" onclick="selectRow('@salonrow.RowID')" />
+                            }
                         }
                     </div>
                 }
+                <input type="hidden"  name="RowId" value="@salonrow.RowID" />
                 <input type="hidden" name="ShowID" value="@show.ShowID" />
             }
         </div>
@@ -70,4 +74,15 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+<style>
+    .disabled-checkbox {
+        pointer-events: none;
+        opacity: 0.5; 
+    }
+</style>
+<script>
+    function selectRow(rowId) {
+        document.getElementById('selectedRow').value = rowId;
+    }
+</script>
 

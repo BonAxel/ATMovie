@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ATMovie.Data;
 using ATMovie.Models;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 
 namespace ATMovie.Controllers
 {
@@ -66,7 +67,6 @@ namespace ATMovie.Controllers
                 .ThenInclude(s => s.Row)
                 .ThenInclude(s => s.Seats)
                 .ThenInclude(s => s.Seat)
-
                 .ToList();
             if (ViewBag.Show == null)
             {
@@ -77,6 +77,9 @@ namespace ATMovie.Controllers
 
         [BindProperty]
         public List<int> SeatIsChecked { get; set; }
+
+        [BindProperty]
+        public List<int> RowId { get; set; }
 
         public IActionResult CheckSeats()
         {
@@ -90,22 +93,36 @@ namespace ATMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingID,Kundnamn,Epost,ShowID")] Booking booking, int? id)
         {
-            //if (selectedSeats != null && selectedSeats.Any())
-            //{
-            //    ModelState.AddModelError("selectedSeats", "Please select at least one seat.");
-            //    return View();
-            //}
-            List<SalonRows> SelectedRows = new List<SalonRows>();
 
+            List<SalonRows> SelectedRows = new List<SalonRows>();
             foreach (var item in SeatIsChecked)
             {
-                SalonRows? salonRows = new SalonRows();
-                salonRows = await _context.SalonRows
-                                    .FirstOrDefaultAsync(m => m.RowID == item);
+                SalonRows salonRows = await _context.SalonRows
+                    .Include(s => s.Row)
+                        .ThenInclude(a => a.Seats)
+                        .ThenInclude(a => a.Seat)
+                    .FirstOrDefaultAsync(m => m.Row.Seats.Any(a => a.RowSeatId == item));
 
-                SelectedRows.Add(salonRows);
+                if (salonRows != null)
+                {
+                    foreach (RowSeat seat in salonRows.Row.Seats)
+                    {
+                        int count = 0;
+                        foreach (var seats in seat.Seat.Seats)
+                        {
+                            if (seat.RowSeatId == item && seats.RowID == salonRows.RowID)
+                            {
+                                count++;
+                                seats.Seat.IsBooked = true;
+                                if (count == SelectedRows.Count) break;
+                            }
+
+                        }
+                    }
+                    SelectedRows.Add(salonRows);
+                }
             }
-            
+
 
             if (ModelState.IsValid)
             {

@@ -4,26 +4,9 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ATMovie.Models
 {
-    //public class Seat
-    //{
-    //    public int SeatId { get; set; }
-    //    public bool IsBooked { get; set; }
-
-    //    Row Row { get; set; }
-
-    //    public Seat(bool isBooked)
-    //    {
-    //        IsBooked = isBooked;
-    //    }
-
-
-    //    public Seat()
-    //    {
-
-    //    }
-    //}
     public class Seat
     {
+
         public int SeatId { get; set; }
         public bool IsBooked { get; set; }
 
@@ -38,6 +21,15 @@ namespace ATMovie.Models
         public Seat()
         {
 
+        }
+
+        public bool BoolBookSeat()
+        {
+            return true;
+        }
+        public bool BoolCancelSeat()
+        {
+            return  false;
         }
     }
 }
