@@ -56,14 +56,14 @@ namespace ATMovie.Data
 
             //context.
             // Seed Rows
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i <= 8; i++)
             {
                 context.Row.Add(new Row()); // Assuming Row constructor requires a parameter
             }
             context.SaveChanges();
 
             // Seed Seats
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 15; i++)
             {
                 context.Seat.Add(new Seat(false)); // Assuming Seat constructor requires a parameter
             }
@@ -112,7 +112,7 @@ namespace ATMovie.Data
             //}
             for (int i = 1; i <= 5; i++)
             {
-                int amountOfSeats = +50;
+                int amountOfSeats = +15;
                 context.Salon.Add(new Salon("Salon "+i, amountOfSeats, null));
 
             }
