@@ -46,13 +46,23 @@ namespace ATMovie.Data
             context.SaveChanges();
 
 
-            for (int i = 0; i <= 8; i++)
+            //for (int i = 0; i <= 5; i++) context.Row.Add(new Row(1));
+            //context.SaveChanges();
+
+
+            //for (int i = 0; i < 300; i++) context.Seat.Add(new Seat(false));
+            //context.SaveChanges();
+
+            //context.
+            // Seed Rows
+            for (int i = 0; i <= 7; i++)
             {
                 context.Row.Add(new Row()); 
             }
             context.SaveChanges();
 
-            for (int i = 0; i < 15; i++)
+            // Seed Seats
+            for (int i = 0; i < 10; i++)
             {
                 context.Seat.Add(new Seat(false));
             }
@@ -73,7 +83,7 @@ namespace ATMovie.Data
 
             for (int i = 1; i <= 5; i++)
             {
-                int amountOfSeats = +15;
+                int amountOfSeats = +70;
                 context.Salon.Add(new Salon("Salon "+i, amountOfSeats, null));
 
             }
@@ -89,12 +99,61 @@ namespace ATMovie.Data
                 }
             }
 
+
+            //var Salon = context.Salon.ToList(); // Retrieve all rows
+            //var Row1 = context.Row.ToList(); // Retrieve all rows
+
+            //foreach (var salon in context.Salon)
+            //{
+            //    foreach (var row in Row1)
+            //    {
+            //        var salonRows = new SalonRows(salon, row);
+            //        context.SalonRows.Add(salonRows);
+            //    }
+            //}
+
             context.SaveChanges();
 
             context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
-            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
-            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(2), context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(4), context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
+           
+            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(2)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(2), context.Movie.FirstOrDefault(m => m.MovieID.Equals(2)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(4), context.Movie.FirstOrDefault(m => m.MovieID.Equals(2)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
+
+            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(3)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(2), context.Movie.FirstOrDefault(m => m.MovieID.Equals(3)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(4), context.Movie.FirstOrDefault(m => m.MovieID.Equals(3)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
+
             context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(4)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(2), context.Movie.FirstOrDefault(m => m.MovieID.Equals(4)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(4), context.Movie.FirstOrDefault(m => m.MovieID.Equals(4)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
+
+            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(5)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(2), context.Movie.FirstOrDefault(m => m.MovieID.Equals(5)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(4), context.Movie.FirstOrDefault(m => m.MovieID.Equals(5)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
+
+            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(6)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(2), context.Movie.FirstOrDefault(m => m.MovieID.Equals(6)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(4), context.Movie.FirstOrDefault(m => m.MovieID.Equals(6)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
+
+            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(7)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(2), context.Movie.FirstOrDefault(m => m.MovieID.Equals(7)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(4), context.Movie.FirstOrDefault(m => m.MovieID.Equals(7)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
+
+            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(8)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(2), context.Movie.FirstOrDefault(m => m.MovieID.Equals(8)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(4), context.Movie.FirstOrDefault(m => m.MovieID.Equals(8)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
+
+            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(9)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(2), context.Movie.FirstOrDefault(m => m.MovieID.Equals(9)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(4), context.Movie.FirstOrDefault(m => m.MovieID.Equals(9)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
+
+            context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(10)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(2), context.Movie.FirstOrDefault(m => m.MovieID.Equals(10)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
+            context.Show.Add(new Show(DateTime.Now.AddHours(4), context.Movie.FirstOrDefault(m => m.MovieID.Equals(10)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
+
 
             context.SaveChanges();
 

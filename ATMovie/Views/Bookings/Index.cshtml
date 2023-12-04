@@ -9,8 +9,8 @@
 <p>
     <form asp-controller="Bookings" asp-action="Index">
         <p>
-            Search Customer name or Email: <input type="text" name="SearchString" />
-            <input type="submit" value="Filter" />
+            Search for Booking number: <input type="text" name="SearchString" />
+            <input type="submit" value="🔎" />
         </p>
     </form>
 </p>
@@ -43,7 +43,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Seat)
                     </th>
-                    <th></th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +52,7 @@
                     
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item)
+                            @Html.DisplayFor(modelItem => item.Kundnamn)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Epost)
@@ -66,18 +66,16 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Show.ShowDateTime)
                         </td>
+
                         <td>
-                            @Html.DisplayFor(modelItem => item.Show)
+                            @Html.DisplayFor(modelItem => item.Show.Salon.SalonName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Salon)
+                            @Html.DisplayFor(modelItem => item.Show.Salon.SalonRows)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Seat)
-                        </td>
-                        <td>
+                        @* <td>
                             <a asp-action="Delete" asp-route-id="@item.BookingID">Delete</a>
-                        </td>
+                        </td> *@
                     </tr>
                 }
             </tbody>

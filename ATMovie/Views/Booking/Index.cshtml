@@ -3,39 +3,13 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create" >Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Kundnamn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Epost)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Kundnamn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Epost)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BookingID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BookingID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BookingID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div style="text-align:center; margin-top:5vw;">
+    <h2>Your Ticket Reservationnumber is</h2>
+    <h1 class="reservation">@ViewBag.Booking.BookingID</h1>
+</div>
+<div style= "margin-top: 25vw;">
+    <a asp-action="Index" asp-controller="Bookings" class="text-white" style="font-size:150%;">Go to booked tickets → </a>
+    <br />
+    <br />
+    <a asp-action="Index" asp-controller="Movies" class="text-white" style="font-size:150%; ">← Go back to Movies </a>
+</div>

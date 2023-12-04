@@ -37,27 +37,32 @@ header {
     color: #172A46;
 }
 .welcometext {
-  
-    
     position: relative;
-    animation-name: example;
-    animation-duration: 1s;
-    animation-direction: reverse;
+    animation-name: welcomeAnimation;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-delay: 5s;
+    animation-iteration-count: 4;
+    animation-direction: alternate;
 }
 
-@keyframes example {
+@keyframes welcomeAnimation {
     0% {
         color: white;
         left: 0px;
         top: 0px;
+        
+        
     }
 
     25% {
         color: lightblue;
         left: 200px;
         top: 0px;
+        
+       
     }
-  
+
     50% {
         color: white;
         left: 200px;
@@ -74,5 +79,29 @@ header {
         color: white;
         left: 0px;
         top: 0px;
+    }
+}
+
+.reservation {
+    font-size:700%;
+    animation-name: reservationAnimation;
+    animation-duration: 4s;
+}
+
+@keyframes reservationAnimation {
+    0% {
+        color: aqua;
+    }
+
+    25% {
+        color: honeydew;
+    }
+
+    50% {
+        color: palevioletred;
+    }
+
+    100% {
+        color: greenyellow;
     }
 }

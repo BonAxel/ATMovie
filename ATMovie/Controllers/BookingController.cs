@@ -22,11 +22,17 @@ namespace ATMovie.Controllers
         }
 
         // GET: Booking
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            return _context.Booking != null ?
-                        View(await _context.Booking.ToListAsync()) :
-                        Problem("Entity set 'ATMovieContext.Booking'  is null.");
+            if(id != null)
+            {
+                Booking booking = _context.Booking.Find(id);
+                ViewBag.Booking = booking;
+
+            }
+
+            return View();
+
         }
 
         // GET: Booking/Details/5
@@ -130,8 +136,10 @@ namespace ATMovie.Controllers
                 booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
                 _context.Add(booking);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction(nameof(Index), new { id = booking.BookingID });
             }
+
 
             return View("Index", "Bookings");
         }

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ATMovie.Data;
 using ATMovie.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ATMovie.Controllers
 {
@@ -23,10 +24,12 @@ namespace ATMovie.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index(string searchString)
         {
-            int test = 1;
-            ViewBag.Booking = _context.Booking.Where(a => a.BookingID == test).Include(a => a.Show).ThenInclude(a => a.Movie).Include(a => a.Salon);
-
-
+            int.TryParse(searchString, out int result);
+            
+            ViewBag.Booking = _context.Booking.Where(a => a.BookingID == result).Include(a => a.Show).ThenInclude(a => a.Movie).Include(a => a.Salon);
+            
+            
+           
             if (_context.Booking == null)
             {
                 return Problem("Entity set 'MvcMovieContext.Booking'  is null.");
