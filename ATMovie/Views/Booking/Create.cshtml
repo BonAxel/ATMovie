@@ -29,7 +29,7 @@
                         @foreach (RowSeat item in salonrow.Row.Seats)
                         {
 
-                            <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1"
+                            <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1 larger-checkbox"
                                    name="SeatIsChecked" value="@item.RowSeatId" asp-page-handler="CheckSeats" />
 
                         }
@@ -39,7 +39,8 @@
             }
         </div>
     }
-    <hr />
+   <br />
+    <br />
     <div class="row">
         <div class="col-md-4">
             <form asp-action="Create" asp-controller="Booking" method="post">
@@ -54,10 +55,12 @@
                     <input asp-for="Epost" class="form-control" />
                     <span asp-validation-for="Epost" class="text-danger"></span>
                 </div>
+                <br />
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
             </form>
+            <br />
         </div>
     </div>
 </form>
