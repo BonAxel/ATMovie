@@ -24,7 +24,7 @@ namespace ATMovie.Controllers
         // GET: Booking
         public async Task<IActionResult> Index(int? id)
         {
-            if(id != null)
+            if (id != null)
             {
                 Booking booking = _context.Booking.Find(id);
                 ViewBag.Booking = booking;
@@ -84,12 +84,26 @@ namespace ATMovie.Controllers
         [BindProperty]
         public List<int> SeatIsChecked { get; set; }
 
+
+        [BindProperty]
+        public string SelectedSeat { get; set; }
+
+        [BindProperty]
+        public string SelectedSeats { get; set; }
+
         [BindProperty]
         public List<int> RowId { get; set; }
 
         public IActionResult CheckSeats()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BookSeats(string selectedSeats)
+        {
+            TempData["SelectedSeats"] = selectedSeats;
+            return Ok();
         }
 
         // POST: Booking/Create
@@ -99,37 +113,28 @@ namespace ATMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingID,Kundnamn,Epost,ShowID")] Booking booking, int? id)
         {
+            int selectedRow = int.Parse(SelectedSeats.Split(",")[0].Trim('{', '}', ','));
+            int selectedSeat = int.Parse(SelectedSeats.Split(",")[1].Trim('{', '}', ',', ' '));
 
-            List<SalonRows> SelectedRows = new List<SalonRows>();
-            foreach (var item in SeatIsChecked)
+
+
+            SalonRows salonRows = await _context.SalonRows
+                .Include(s => s.Row)
+                    .ThenInclude(a => a.Seats)
+                    .ThenInclude(a => a.Seat)
+                .FirstOrDefaultAsync(m => m.Row.Seats.Any(a => a.RowSeatId == selectedSeat));
+
+            if (salonRows != null)
             {
-                SalonRows salonRows = await _context.SalonRows
-                    .Include(s => s.Row)
-                        .ThenInclude(a => a.Seats)
-                        .ThenInclude(a => a.Seat)
-                    .FirstOrDefaultAsync(m => m.Row.Seats.Any(a => a.RowSeatId == item));
-
-                if (salonRows != null)
+                foreach (RowSeat seat in salonRows.Row.Seats)
                 {
-                    foreach (RowSeat seat in salonRows.Row.Seats)
-                    {
-                        int count = 0;
-                        foreach (var seats in seat.Seat.Seats)
-                        {
-                            if (seat.RowSeatId == item && seats.RowID == salonRows.RowID)
-                            {
-                                count++;
-                                seats.Seat.IsBooked = true;
-                                if (count == SelectedRows.Count) break;
-                            }
 
-                        }
+                    foreach (var seats in seat.Seat.Seats)
+                    {
+                        if (seat.RowSeatId == selectedSeat && seats.RowID == selectedRow) seats.Seat.IsBooked = true;
                     }
-                    SelectedRows.Add(salonRows);
                 }
             }
-
-
             if (ModelState.IsValid)
             {
 
@@ -137,11 +142,13 @@ namespace ATMovie.Controllers
                 _context.Add(booking);
                 await _context.SaveChangesAsync();
 
+                booking.Salon = _context.Salon.FirstOrDefault(a => a.SalonID == id);
+                _context.Add(booking);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index), new { id = booking.BookingID });
             }
-
-
-            return View("Index", "Bookings");
+            return View("Index","Bookings");
         }
 
         // GET: Booking/Edit/5

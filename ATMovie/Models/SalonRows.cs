@@ -20,5 +20,14 @@
         {
                 
         }
+
+        public SalonRows(int id, int salonID, Salon salon, int rowID, Row row)
+        {
+            Id = id;
+            SalonID = salonID;
+            Salon = salon;
+            RowID = rowID;
+            Row = row;
+        }
     }
 }

@@ -7,7 +7,8 @@
 <h1 style="margin-left: 6vw;">Book Movie Tickets</h1>
 <br />
 
-<form method="post">
+@using (Html.BeginForm("Create", "Booking", FormMethod.Post))
+{
     @foreach (Show show in ViewBag.Show)
     {
         <h3 class="Moviescreentext" style="font-family:'ROG Fonts'">@show.Salon.SalonName</h3>
@@ -28,22 +29,25 @@
                             if (item.Seat.IsBooked == true)
                             {
                                 <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1 disabled-checkbox"
-                                       name="SeatIsChecked" value="@item.RowSeatId"/>
+                                       name="SelectedSeats" value="{@item.RowID}, {@item.RowSeatId}" disabled />
                             }
                             else
                             {
                                 <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1 larger-checkbox"
-                                       name="SeatIsChecked" value="@item.RowSeatId" asp-page-handler="CheckSeats" onclick="selectRow('@salonrow.RowID')" />
+                                       name="SelectedSeats" value="{@item.RowID}, {@item.RowSeatId}" />
                             }
                         }
                     </div>
                 }
-                <input type="hidden"  name="RowId" value="@salonrow.RowID" />
+                <input type="hidden" name="RowId" value="@salonrow.RowID" />
                 <input type="hidden" name="ShowID" value="@show.ShowID" />
             }
         </div>
     }
-   <br />
+
+    <br />
+
+    <br />
     <br />
     <div class="row">
         <div class="col-md-4">
@@ -61,16 +65,17 @@
                 </div>
                 <br />
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="BookSeats" class="btn btn-primary" />
                 </div>
             </form>
             <br />
         </div>
     </div>
-</form>
-<div>
-    <a asp-action="Index" class="text-white">Back to Movie</a>
-</div>
+    <div>
+        <a asp-action="Index" class="text-white">Back to Movie</a>
+
+    </div>
+}
 
 @section Scripts {
     @{
@@ -80,7 +85,7 @@
 <style>
     .disabled-checkbox {
         pointer-events: none;
-        opacity: 0.5; 
+        opacity: 0.5;
     }
 </style>
 <script>
