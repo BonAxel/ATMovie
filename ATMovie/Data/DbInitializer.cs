@@ -45,37 +45,69 @@ namespace ATMovie.Data
                 "But when one of the guests is murdered, it is up to the former detective to once again uncover the killer.", "1h 43", 150, "https://img-cdn.sfanytime.com/COVERM/COVERM_24002253-2c8d-49e4-bd0c-4fcfdb942524_sv.jpg?w=375&ar=0.692&fit=crop&fm=pjpg&s=9d204ca5fe7f72fe336ca00e547207db"));
             context.SaveChanges();
 
+            //for (int i = 0; i <= 7; i++)
+            //{
+            //    context.Row.Add(new Row()); 
+            //}
+            //context.SaveChanges();
+
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    context.Seat.Add(new Seat(false));
+            //}
+            //context.SaveChanges();
+
+            //var rows = context.Row.ToList();
+            //var seats = context.Seat.ToList(); 
+
+            //foreach (var row in rows)
+            //{
+            //    foreach (var seat in seats)
+            //    {
+            //        var junction = new RowSeat {Row = row, Seat = seat };
+            //        context.Junctions.Add(junction);
+            //    }
+            //}
+            //context.SaveChanges();
+
             for (int i = 0; i <= 7; i++)
             {
-                context.Row.Add(new Row()); 
-            }
-            context.SaveChanges();
+                var newRow = new Row();
+                context.Row.Add(newRow);
 
-            for (int i = 0; i < 10; i++)
-            {
-                context.Seat.Add(new Seat(false));
-            }
-            context.SaveChanges();
-
-            var rows = context.Row.ToList();
-            var seats = context.Seat.ToList(); 
-
-            foreach (var row in rows)
-            {
-                foreach (var seat in seats)
+                for (int j = 0; j < 10; j++)
                 {
-                    var junction = new RowSeat { Row = row, Seat = seat };
+                    var newSeat = new Seat(false);
+                    context.Seat.Add(newSeat);
+
+                    var junction = new RowSeat { Row = newRow, Seat = newSeat };
                     context.Junctions.Add(junction);
                 }
             }
-            context.SaveChanges();
-
             for (int i = 1; i <= 5; i++)
             {
                 int amountOfSeats = +70;
-                context.Salon.Add(new Salon("Salon "+i, amountOfSeats, null));
+                context.Salon.Add(new Salon("Salon " + i, amountOfSeats, null));
 
             }
+            context.SaveChanges();
+
+
+            for (int i = 0; i <= 7; i++)
+            {
+                var newRow = new Row();
+                context.Row.Add(newRow);
+
+                for (int j = 0; j < 10; j++)
+                {
+                    var newSeat = new Seat(false);
+                    context.Seat.Add(newSeat);
+
+                    var junction = new RowSeat { Row = newRow, Seat = newSeat };
+                    context.Junctions.Add(junction);
+                }
+            }
+
             context.SaveChanges();
 
 

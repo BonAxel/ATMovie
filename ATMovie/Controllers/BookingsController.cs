@@ -26,7 +26,7 @@ namespace ATMovie.Controllers
         {
             int.TryParse(searchString, out int result);
             
-            ViewBag.Booking = _context.Booking.Where(a => a.BookingID == result).Include(a => a.Show).ThenInclude(a => a.Movie).Include(a => a.Salon);
+            ViewBag.Booking = _context.Booking.Where(a => a.BookingID == result).Include(a => a.Show).ThenInclude(a => a.Movie).Include(a => a.Salon).Include(a => a.RowSeat);
             
             
            

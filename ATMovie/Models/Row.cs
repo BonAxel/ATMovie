@@ -26,7 +26,6 @@ namespace ATMovie.Models
         public int Id { get; set; }
         public ICollection<RowSeat>? Seats { get; set; }
 
-
         public Row()
         {
                 

@@ -10,8 +10,10 @@ namespace ATMovie.Models
         public int SeatId { get; set; }
         public bool IsBooked { get; set; }
 
-        // Foreign key property
-        public ICollection<RowSeat>? Seats { get; set; }
+        //// Foreign key property
+        //public ICollection<RowSeat>? Seats { get; set; }
+
+
 
         public Seat(bool isBooked)
         {
@@ -23,13 +25,5 @@ namespace ATMovie.Models
 
         }
 
-        public bool BoolBookSeat()
-        {
-            return true;
-        }
-        public bool BoolCancelSeat()
-        {
-            return  false;
-        }
     }
 }

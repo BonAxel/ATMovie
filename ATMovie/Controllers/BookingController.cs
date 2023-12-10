@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ATMovie.Data;
 using ATMovie.Models;
 using Microsoft.EntityFrameworkCore.Update.Internal;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ATMovie.Controllers
 {
@@ -81,18 +82,15 @@ namespace ATMovie.Controllers
             return View();
         }
 
-        [BindProperty]
-        public List<int> SeatIsChecked { get; set; }
 
 
-        [BindProperty]
-        public string SelectedSeat { get; set; }
+
+
 
         [BindProperty]
         public string SelectedSeats { get; set; }
 
-        [BindProperty]
-        public List<int> RowId { get; set; }
+
 
         public IActionResult CheckSeats()
         {
@@ -102,6 +100,10 @@ namespace ATMovie.Controllers
         [HttpPost]
         public async Task<IActionResult> BookSeats(string selectedSeats)
         {
+            if (selectedSeats == null)
+            {
+                return Problem();
+            }
             TempData["SelectedSeats"] = selectedSeats;
             return Ok();
         }
@@ -113,10 +115,9 @@ namespace ATMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingID,Kundnamn,Epost,ShowID")] Booking booking, int? id)
         {
+
             int selectedRow = int.Parse(SelectedSeats.Split(",")[0].Trim('{', '}', ','));
             int selectedSeat = int.Parse(SelectedSeats.Split(",")[1].Trim('{', '}', ',', ' '));
-
-
 
             SalonRows salonRows = await _context.SalonRows
                 .Include(s => s.Row)
@@ -126,29 +127,24 @@ namespace ATMovie.Controllers
 
             if (salonRows != null)
             {
-                foreach (RowSeat seat in salonRows.Row.Seats)
-                {
-
-                    foreach (var seats in seat.Seat.Seats)
-                    {
-                        if (seat.RowSeatId == selectedSeat && seats.RowID == selectedRow) seats.Seat.IsBooked = true;
-                    }
-                }
+                RowSeat test = salonRows.Row.Seats.FirstOrDefault(a => a.RowSeatId == selectedSeat && a.RowID == selectedRow);
+                Seat seat = new Seat(test.Seat.IsBooked = true);
+                test.Seat.IsBooked = seat.IsBooked;
             }
             if (ModelState.IsValid)
             {
-
+                RowSeat rowSeat = salonRows.Row.Seats.FirstOrDefault(a => a.RowSeatId == selectedSeat && a.RowID == selectedRow);
                 booking.Show = _context.Show.FirstOrDefault(a => a.ShowID == id);
-                _context.Add(booking);
-                await _context.SaveChangesAsync();
-
                 booking.Salon = _context.Salon.FirstOrDefault(a => a.SalonID == id);
+                booking.RowSeat = rowSeat;
+
                 _context.Add(booking);
+
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index), new { id = booking.BookingID });
             }
-            return View("Index","Bookings");
+            return View("Index", "Bookings");
         }
 
         // GET: Booking/Edit/5

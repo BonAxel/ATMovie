@@ -11,5 +11,10 @@
         public int SeatID { get; set; }
         public Seat Seat { get; set; }
 
+
+        public RowSeat()
+        {
+                
+        }
     }
 }

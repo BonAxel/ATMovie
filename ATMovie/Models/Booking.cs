@@ -13,18 +13,18 @@ namespace ATMovie.Models
 
         public Show? Show { get; set; }
        
-        public Seat? Seat { get; set; }
+        public RowSeat? RowSeat { get; set; }
 
         public Salon? Salon { get; set; }
 
 
-        public Booking(int bookingID, string kundnamn, string epost, Show show, Seat seat, Salon salon)
+        public Booking(int bookingID, string kundnamn, string epost, Show show, RowSeat rowSeat, Salon salon)
         {
             BookingID = bookingID;
             Kundnamn = kundnamn;
             Epost = epost;
             Show = show;
-            Seat = seat;
+            RowSeat = rowSeat;
             Salon = salon;
         }
         public Booking()

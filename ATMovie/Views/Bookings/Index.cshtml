@@ -41,9 +41,11 @@
                         @Html.DisplayNameFor(model => model.Salon)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Seat)
+                        @Html.DisplayNameFor(model => model.RowSeat.RowID)
                     </th>
-                    
+                    <th>
+                        @Html.DisplayNameFor(model => model.RowSeat.RowSeatId)
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -66,12 +68,14 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Show.ShowDateTime)
                         </td>
-
                         <td>
                             @Html.DisplayFor(modelItem => item.Show.Salon.SalonName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Show.Salon.SalonRows)
+                            @Html.DisplayFor(modelItem => item.RowSeat.RowID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RowSeat.RowSeatId)
                         </td>
                     </tr>
                 }

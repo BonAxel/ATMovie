@@ -17,28 +17,23 @@
         <div style="width: 30vw;">
             @foreach (SalonRows salonrow in show.Salon.SalonRows)
             {
-                @if (salonrow.Row.Seats == null)
-                {
-                    <p>Unable to display theater</p>
-                }
-                else
-                {
-                    <div class="row mt-4">
-                        @foreach (RowSeat item in salonrow.Row.Seats)
+                <div class="row mt-4">
+                    @foreach (var item in salonrow.Row.Seats)
+                    {
+                        if (item.Seat.IsBooked == true)
                         {
-                            if (item.Seat.IsBooked == true)
-                            {
-                                <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1 disabled-checkbox"
-                                       name="SelectedSeats" value="{@item.RowID}, {@item.RowSeatId}" disabled />
-                            }
-                            else
-                            {
-                                <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1 larger-checkbox"
-                                       name="SelectedSeats" value="{@item.RowID}, {@item.RowSeatId}" />
-                            }
+                            <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1 disabled-checkbox"
+                            disabled/>
+
                         }
-                    </div>
-                }
+                        else
+                        {
+                            <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1 larger-checkbox"
+                                   name="SelectedSeats" value="{@item.RowID}, {@item.RowSeatId}"/>
+                        }
+                    }
+                </div>
+
                 <input type="hidden" name="RowId" value="@salonrow.RowID" />
                 <input type="hidden" name="ShowID" value="@show.ShowID" />
             }
