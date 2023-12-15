@@ -40,6 +40,7 @@ namespace ATMovie.Controllers
         // GET: Booking/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+
             ViewBag.Show = _context.Show.Where(a => a.Movie.MovieID == id)
                 .Include(a => a.Movie).Include(a => a.Salon)
                 .ThenInclude(a => a.SalonRows)
@@ -116,6 +117,7 @@ namespace ATMovie.Controllers
             {
                 ModelState.AddModelError("BookSeats", "Please select at least one seat.");
                 return View();
+                
             }
             int selectedRow = int.Parse(SelectedSeats.Split(",")[0].Trim('{', '}', ','));
             int selectedSeat = int.Parse(SelectedSeats.Split(",")[1].Trim('{', '}', ',', ' '));
