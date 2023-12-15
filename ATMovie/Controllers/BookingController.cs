@@ -9,6 +9,7 @@ using ATMovie.Data;
 using ATMovie.Models;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using static System.Net.Mime.MediaTypeNames;
+using System.ComponentModel.DataAnnotations;
 
 namespace ATMovie.Controllers
 {
@@ -82,12 +83,8 @@ namespace ATMovie.Controllers
             return View();
         }
 
-
-
-
-
-
         [BindProperty]
+        [Required]
         public string SelectedSeats { get; set; }
 
 
@@ -115,7 +112,11 @@ namespace ATMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingID,Kundnamn,Epost,ShowID")] Booking booking, int? id)
         {
-
+            if (SelectedSeats == null)
+            {
+                ModelState.AddModelError("BookSeats", "Please select at least one seat.");
+                return View();
+            }
             int selectedRow = int.Parse(SelectedSeats.Split(",")[0].Trim('{', '}', ','));
             int selectedSeat = int.Parse(SelectedSeats.Split(",")[1].Trim('{', '}', ',', ' '));
 
