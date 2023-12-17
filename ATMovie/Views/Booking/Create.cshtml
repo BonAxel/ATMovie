@@ -23,13 +23,12 @@
                         if (item.Seat.IsBooked == true)
                         {
                             <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1 disabled-checkbox"
-                            disabled/>
-
+                                   disabled />
                         }
                         else
                         {
                             <input type="checkbox" class="col aspect-ratio aspect-ratio-1x1 larger-checkbox"
-                                   name="SelectedSeats" value="{@item.RowID}, {@item.RowSeatId}"/>
+                                   name="SelectedSeats" value="{@item.RowID}, {@item.RowSeatId}" />
                         }
                     }
                 </div>
@@ -39,7 +38,6 @@
             }
         </div>
     }
-
     <br />
 
     <br />
@@ -62,6 +60,7 @@
                 <div class="form-group">
                     <input asp-for="RowSeat" type="submit" value="BookSeats" class="btn btn-primary" />
                     <span asp-validation-for="RowSeat" class="text-danger"></span>
+
                 </div>
             </form>
             <br />
@@ -69,7 +68,6 @@
     </div>
     <div>
         <a asp-action="Index" class="text-white">Back to Movie</a>
-
     </div>
 }
 
@@ -84,9 +82,9 @@
         opacity: 0.5;
     }
 </style>
-<script>
+@* <script>
     function selectRow(rowId) {
         document.getElementById('selectedRow').value = rowId;
     }
-</script>
+</script> *@
 

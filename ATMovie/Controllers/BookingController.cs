@@ -10,6 +10,7 @@ using ATMovie.Models;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using static System.Net.Mime.MediaTypeNames;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ATMovie.Controllers
 {
@@ -84,12 +85,6 @@ namespace ATMovie.Controllers
             return View();
         }
 
-        [BindProperty]
-        [Required]
-        public string SelectedSeats { get; set; }
-
-
-
         public IActionResult CheckSeats()
         {
             return View();
@@ -106,6 +101,10 @@ namespace ATMovie.Controllers
             return Ok();
         }
 
+        [BindProperty]
+        [Required]
+        public string SelectedSeats { get; set; }
+
         // POST: Booking/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -115,7 +114,9 @@ namespace ATMovie.Controllers
         {
             if (SelectedSeats == null)
             {
-                ModelState.AddModelError("BookSeats", "Please select at least one seat.");
+                ModelState.AddModelError("RowSeat", "Please select at least one seat.");
+                ViewBag.Show = _context.Show.Where(a => a.ShowID == id).Include(a => a.Movie).Include(a => a.Salon).ThenInclude(a => a.SalonRows).ThenInclude(a => a.Row).ThenInclude(a => a.Seats).ThenInclude(a => a.Seat);
+
                 return View();
                 
             }
@@ -130,9 +131,9 @@ namespace ATMovie.Controllers
 
             if (salonRows != null)
             {
-                RowSeat test = salonRows.Row.Seats.FirstOrDefault(a => a.RowSeatId == selectedSeat && a.RowID == selectedRow);
-                Seat seat = new Seat(test.Seat.IsBooked = true);
-                test.Seat.IsBooked = seat.IsBooked;
+                RowSeat rowSeat = salonRows.Row.Seats.FirstOrDefault(a => a.RowSeatId == selectedSeat && a.RowID == selectedRow);
+                Seat seat = new Seat(rowSeat.Seat.IsBooked = true);
+                rowSeat.Seat.IsBooked = seat.IsBooked;
             }
             if (ModelState.IsValid)
             {
