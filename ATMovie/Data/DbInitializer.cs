@@ -45,55 +45,11 @@ namespace ATMovie.Data
                 "But when one of the guests is murdered, it is up to the former detective to once again uncover the killer.", "1h 43", 150, "https://img-cdn.sfanytime.com/COVERM/COVERM_24002253-2c8d-49e4-bd0c-4fcfdb942524_sv.jpg?w=375&ar=0.692&fit=crop&fm=pjpg&s=9d204ca5fe7f72fe336ca00e547207db"));
             context.SaveChanges();
 
-
-            for (int i = 0; i <= 7; i++)
-            {
-                var newRow = new Row();
-                context.Row.Add(newRow);
-
-                for (int j = 0; j < 10; j++)
-                {
-                    var newSeat = new Seat(false);
-                    context.Seat.Add(newSeat);
-
-                    var junction = new RowSeat { Row = newRow, Seat = newSeat };
-                    context.Junctions.Add(junction);
-                }
-            }
             for (int i = 1; i <= 5; i++)
             {
                 int amountOfSeats = +70;
-                context.Salon.Add(new Salon("Salon " + i, amountOfSeats, null));
+                context.Salon.Add(new Salon("Salon " + i, amountOfSeats, new List<SalonRows>()));
 
-            }
-            context.SaveChanges();
-
-
-            //for (int i = 0; i <= 4; i++)
-            //{
-            //    var newRow = new Row();
-            //    context.Row.Add(newRow);
-
-            //    for (int j = 0; j < 10; j++)
-            //    {
-            //        var newSeat = new Seat(false);
-            //        context.Seat.Add(newSeat);
-
-            //        var junction = new RowSeat { Row = newRow, Seat = newSeat };
-            //        context.Junctions.Add(junction);
-            //    }
-            //}
-
-            context.SaveChanges();
-
-
-            foreach (var salon in context.Salon)
-            {
-                foreach (var row in context.Row)
-                {
-                    var salonRow = new SalonRows(salon, row);
-                    context.SalonRows.Add(salonRow);
-                }
             }
 
             context.SaveChanges();
@@ -101,7 +57,7 @@ namespace ATMovie.Data
             context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
             context.Show.Add(new Show(DateTime.Now.AddHours(2), context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
             context.Show.Add(new Show(DateTime.Now.AddHours(4), context.Movie.FirstOrDefault(m => m.MovieID.Equals(1)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
-           
+
             context.Show.Add(new Show(DateTime.Now, context.Movie.FirstOrDefault(m => m.MovieID.Equals(2)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(1))));
             context.Show.Add(new Show(DateTime.Now.AddHours(2), context.Movie.FirstOrDefault(m => m.MovieID.Equals(2)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
             context.Show.Add(new Show(DateTime.Now.AddHours(4), context.Movie.FirstOrDefault(m => m.MovieID.Equals(2)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
@@ -138,9 +94,36 @@ namespace ATMovie.Data
             context.Show.Add(new Show(DateTime.Now.AddHours(2), context.Movie.FirstOrDefault(m => m.MovieID.Equals(10)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(2))));
             context.Show.Add(new Show(DateTime.Now.AddHours(4), context.Movie.FirstOrDefault(m => m.MovieID.Equals(10)), context.Salon.FirstOrDefault(s => s.SalonID.Equals(3))));
 
+            context.SaveChanges();
+
+
+            for (int i = 0; i <= 7; i++)
+            {
+                var newRow = new Row();
+                context.Row.Add(newRow);
+
+                for (int j = 0; j < 10; j++)
+                {
+                    var newSeat = new Seat(false);
+                    context.Seat.Add(newSeat);
+
+                    RowSeat rowSeat = new RowSeat { Row = newRow, Seat = newSeat };
+                    context.RowSeat.Add(rowSeat);
+                }
+            }
 
             context.SaveChanges();
 
+            foreach (var salon in context.Salon)
+            {
+                foreach (var row in context.Row)
+                {
+                    var salonRow = new SalonRows(salon, row);
+                    context.SalonRows.Add(salonRow);
+                }
+            }
+            context.SaveChanges();
         }
+
     }
 }

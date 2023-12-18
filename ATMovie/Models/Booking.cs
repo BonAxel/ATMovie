@@ -17,7 +17,6 @@ namespace ATMovie.Models
 
         public Salon? Salon { get; set; }
 
-
         public Booking(int bookingID, string kundnamn, string epost, Show show, RowSeat rowSeat, Salon salon)
         {
             BookingID = bookingID;

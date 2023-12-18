@@ -17,7 +17,7 @@ namespace ATMovie.Data
         public DbSet<Salon> Salon { get; set; } = default!;
         public DbSet<Seat> Seat { get; set; } = default!;
         public DbSet<Row> Row { get; set; } = default!;
-        public DbSet<RowSeat> Junctions { get; set; } = default!;
+        public DbSet<RowSeat> RowSeat { get; set; } = default!;
         public DbSet<SalonRows> SalonRows { get; set; } = default!;
 
 

@@ -67,17 +67,33 @@ namespace ATMovie.Controllers
         // GET: Booking/Create
         public IActionResult Create(int? id)
         {
-            Booking booking = new Booking();
-
             ViewBag.Show = _context.Show
-            .Where(a => a.ShowID == id)
+                .Where(a => a.ShowID == id)
                 .Include(a => a.Movie)
                 .Include(a => a.Salon)
                 .ThenInclude(s => s.SalonRows)
-                .ThenInclude(s => s.Row)
-                .ThenInclude(s => s.Seats)
+                .ThenInclude(sr => sr.Row)
+                .ThenInclude(r => r.Seats)
                 .ThenInclude(s => s.Seat)
                 .ToList();
+
+            var bookedSeatIds = _context.Booking
+                .Where(a => a.Show.ShowID == id)
+                .Select(b => b.RowSeat.Seat.SeatId)
+                .ToList();
+
+            foreach (var show in ViewBag.Show)
+            {
+                foreach (var salonRow in show.Salon.SalonRows)
+                {
+                    foreach (var seat in salonRow.Row.Seats)
+                    {
+                        seat.Seat.IsBooked = bookedSeatIds.Contains(seat.Seat.SeatId);
+                    }
+                }
+            }
+
+
             if (ViewBag.Show == null)
             {
                 return NotFound();
